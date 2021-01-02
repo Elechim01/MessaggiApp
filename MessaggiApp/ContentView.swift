@@ -8,9 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+//    View di gestione
+//    @AppStorage("qualcosa") var status =
+    var trovato = true
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ZStack{
+            if trovato{
+                NavigationView{
+                   SceltaMultipla()
+                    .navigationTitle("")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarHidden(true)
+                }
+//                    Prednere spunto per tabbar
+//                    if trovato != true{ SceltaMultipla()}
+            }else{
+                LoginView(telefono: "33334")
+            }
+        }
+        
     }
 }
 
