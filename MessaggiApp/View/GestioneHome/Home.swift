@@ -9,8 +9,10 @@ import SwiftUI
 
 struct Home: View {
     
-    @State var cerca : String
-    var elementi :  [Utente]
+    @State var cerca : String = ""
+//    var Proprietario = Utente(nome: "Michele", cognome: "", nickname: "", numeroTelefono: "", image: UIImage(imageLiteralResourceName: "Tulipani"))
+    @EnvironmentObject var gestioneDati : Gestione
+//    var elementi :  [Chat]
     @State var edge = UIApplication.shared.windows.first?.safeAreaInsets
     
     var body: some View {
@@ -38,14 +40,11 @@ struct Home: View {
                     .padding(.trailing,10)
                     .padding(.top,10)
                     ScrollView{
-                        ForEach(elementi){ ele in
+                        ForEach(gestioneDati.elencoChat){ ele in
                             NavigationLink(
-                                destination: ChatView(utente: ele, chat: [
-                                Chat(testo: "Hola", data: Date(), utente: ele),
-                                    Chat(testo: "Amigo", data: Date(), utente: Utente(nome: "Michele", image: UIImage(imageLiteralResourceName: "Tulipani")))
-                                ]),
-                                label: {
-                                    contatti(utente: ele)
+                                destination: ChatView( chat: ele).environmentObject(gestioneDati)
+                                ,label: {
+                                    contatti(utente: gestioneDati.trovaUtenti(telefono: ele.telefono)!)
                                         .frame(height:50)
                                         .background(Color.white)
                                         .cornerRadius(50)
@@ -69,7 +68,8 @@ struct Home: View {
 }
 
 struct Home_Previews: PreviewProvider {
+    static var utente = Utente(nome: "Pippo", cognome: "", nickname: "", numeroTelefono: "", image: UIImage(imageLiteralResourceName: "Tulipani"))
     static var previews: some View {
-        Home(cerca: "", elementi: [Utente(nome: "gianfranco", image: UIImage(imageLiteralResourceName: "Tulipani")),Utente(nome: "michele", image: UIImage(imageLiteralResourceName: "Tulipani"))])
+        Home().environmentObject(Gestione())
     }
 }

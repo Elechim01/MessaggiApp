@@ -10,13 +10,14 @@ import SwiftUI
 struct ContentView: View {
 //    View di gestione
 //    @AppStorage("qualcosa") var status =
+    @StateObject var gestionedati = Gestione()
     var trovato = true
     
     var body: some View {
         ZStack{
             if trovato{
                 NavigationView{
-                   SceltaMultipla()
+                    SceltaMultipla().environmentObject(gestionedati)
                     .navigationTitle("")
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationBarHidden(true)

@@ -9,27 +9,26 @@ import SwiftUI
 
 struct ChatView: View {
 //    scaricamento lista di messaggi dal databse
-    var utente : Utente
-    var chat : [Chat]
+    @EnvironmentObject var Dati : Gestione
+    var chat : Chat
      @State var messaggio : String = ""
     var body: some View {
         VStack{
             ScrollView {
-                ForEach(chat){ chati in
-                    MessageView(chatu: chati)
-                    
+                ForEach(chat.messaggi){ message in
+                    MessageView(utenteMess: Dati.trovaUtenti(telefono: message.telefono)!, messaggio: message).environmentObject(Dati)
                 }
             }
             Spacer()
             HStack{
-                TextField("Inserisci messaggio", text: $messaggio)
+                TextField("  Inserisci messaggio", text: $messaggio)
                     .foregroundColor(.black)
                     .frame(height: 45)
                     .background(Color.white)
-                    .cornerRadius(40)
+                    .cornerRadius(20)
                     .padding()
                 Button(action: {
-                    
+                    Dati.AddMessage(txt: messaggio, chat: chat, utente: Dati.Prorpietario)
                 }, label: {
                     Image("Mess")
                         .padding(.trailing,20)
@@ -45,19 +44,24 @@ struct ChatView: View {
         }
         .background(Color.green.ignoresSafeArea(.all,edges: .all))
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing:Image(uiImage:utente.image).resizable().frame(width: 40, height: 40).clipShape(Circle()))
-            .navigationBarTitle(utente.nome)
+        .navigationBarItems(trailing:Image(uiImage:Dati.trovaUtenti(telefono: chat.telefono)!.image).resizable().frame(width: 40, height: 40).clipShape(Circle()))
+        .navigationBarTitle(Dati.trovaUtenti(telefono: chat.telefono)!.nome)
+        
 
     }
 }
 
 struct ChatView_Previews: PreviewProvider {
-    static var utente = Utente(nome: "Pippo", image:
+    static var propri = Utente(nome: "Michele",cognome: "gari",nickname: "Pippo",numeroTelefono: "", image:
                                 UIImage(imageLiteralResourceName: "Tulipani"))
-    static var utente1 = Utente(nome: "Michele", image:
+    static var utente = Utente(nome: "Pippo",cognome: "gari",nickname: "Pippo",numeroTelefono: "", image:
                                 UIImage(imageLiteralResourceName: "Tulipani"))
+    static var messagg01 = Messaggi(testo: "Ciao", data: Date(),telefono: "30")
+    static var messagg02 = Messaggi(testo: "Ciao", data: Date(), telefono: "40")
+//
+    static var chat = Chat(image: "Tulipani", messaggi: [messagg01,messagg02],telefono: "40")
     
     static var previews: some View {
-        ChatView(utente:utente , chat: [Chat(testo: "ciao", data: Date(), utente:utente),Chat(testo: "Hola", data: Date(), utente: utente1)])
+        ChatView(chat: chat).environmentObject(Gestione())
     }
 }

@@ -4,7 +4,8 @@
 //
 //  Created by Michele on 02/01/21.
 //
-
+//in qiesta view dovra esserci una lista di utenti, una vola cliccati,
+//si crera una chat,
 import SwiftUI
 
 struct UtenteView: View {

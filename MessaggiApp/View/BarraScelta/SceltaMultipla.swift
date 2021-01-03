@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct SceltaMultipla: View {
+    
+    @EnvironmentObject var gestionedati : Gestione
+    
+    var utente = Utente(nome: "Pippo", cognome: "", nickname: "", numeroTelefono: "", image: UIImage(imageLiteralResourceName: "Tulipani"))
     @State var selectTabbar: String = "messaggi"
     @State var edge = UIApplication.shared.windows.first?.safeAreaInsets
     var body: some View {
         
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom), content: {
             TabView(selection: $selectTabbar){
-                    Home(cerca: "", elementi: [Utente(nome: "pippo", image: UIImage(imageLiteralResourceName: "Tulipani"))])
+                    Home().environmentObject(gestionedati)
                         .tag("messaggi")
                     Impostazioni()
                         .tag("impostazioni")
@@ -50,6 +54,6 @@ var tabs = ["messaggi","impostazioni","utente"]
 
 struct SceltaMultipla_Previews: PreviewProvider {
     static var previews: some View {
-        SceltaMultipla()
+        SceltaMultipla().environmentObject(Gestione())
     }
 }

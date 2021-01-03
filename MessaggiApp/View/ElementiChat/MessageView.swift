@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct MessageView: View {
-    var chatu : Chat
+    @EnvironmentObject var Dati : Gestione
+//    var propietario : Utente
+     var utenteMess : Utente
+    var messaggio : Messaggi
     var body: some View {
             HStack{
-                if chatu.utente.nome == "Michele"{Spacer(minLength: 0)}
+                if utenteMess.nome == Dati.Prorpietario.nome{Spacer(minLength: 0)}
             
-                VStack(alignment: chatu.utente.nome == "Michele" ?.leading :.trailing,spacing:5){
-                    Text("\(chatu.testo)")
+                VStack(alignment: utenteMess.nome == Dati.Prorpietario.nome ?.leading :.trailing,spacing:5){
+                    Text("\(messaggio.testo)")
                         .fontWeight(.semibold)
                         .frame(height: 10)
                         .foregroundColor(.black)
@@ -25,22 +28,24 @@ struct MessageView: View {
                         .background(Color.white)
                         .clipShape(Capsule())
                         
-                    Text(chatu.data,style: .time)
+                    Text(messaggio.data,style: .time)
+                        .frame(alignment: utenteMess.nome == Dati.Prorpietario.nome ?.leading :.trailing )
             }
                 
-                if chatu.utente.nome != "Michele"{Spacer(minLength: 0)}
+                if utenteMess.nome != Dati.Prorpietario.nome {Spacer(minLength: 0)}
             }
 //            .background(Color.blue)
             .padding()
+            .onAppear{
+                print(utenteMess.nickname)
+            }
 //            .background(Color.green)
 //            .ignoresSafeArea(.all,edges: .all)
     }
 }
 
 struct MessageView_Previews: PreviewProvider {
-    static var utente1 = Utente(nome: "Michele", image:
-                                UIImage(imageLiteralResourceName: "Tulipani"))
     static var previews: some View {
-        MessageView(chatu: Chat(testo: "pippo", data: Date(), utente: Utente(nome: "Michele", image: UIImage(imageLiteralResourceName: "Tulipani"))))
+        MessageView(utenteMess: Utente(nome: "", cognome: "", nickname: "", numeroTelefono: "", image: #imageLiteral(resourceName: "Busta")), messaggio: Messaggi(testo: "Hello", data: Date(),telefono : "40")).environmentObject(Gestione())
     }
 }

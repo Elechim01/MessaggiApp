@@ -34,6 +34,6 @@ struct contatti: View {
 }
 struct contatti_Previews: PreviewProvider {
     static var previews: some View {
-        contatti(utente : Utente.init(nome: "nome1", image: UIImage(imageLiteralResourceName: "Tulipani") ))
+        contatti(utente : Utente(nome: "Michele", cognome: "Manniello", nickname: "Miky", numeroTelefono: "+393381356237", image: UIImage(imageLiteralResourceName: "Tulipani")))
     }
 }
