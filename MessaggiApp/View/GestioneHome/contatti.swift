@@ -22,7 +22,7 @@ struct contatti: View {
                     .clipShape(Circle())
                 }
                 .padding()
-                Text(utente.nome)
+                Text(utente.nickname)
                     .foregroundColor(.black)
                     .font(.title)
                     .font(.body)

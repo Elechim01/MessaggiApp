@@ -3,3 +3,8 @@ serve il normale di configlurazione,
 firebase per le autenticazioni -> Firebase/Auth
 firebase per firestore -> Firestore
 firebase per effettuare lo store di immagini -> FirebaseStorage
+COSA MANCA
+-cerca
+-parte di firebase
+-impostazioni
+-operazioni di eliminazione. 
