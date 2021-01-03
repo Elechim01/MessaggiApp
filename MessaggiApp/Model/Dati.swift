@@ -13,10 +13,11 @@ class Gestione: NSObject,ObservableObject{
     // creazione proprietario
     @Published var Prorpietario : Utente = Utente(nome: "Michele", cognome: "Manniello", nickname: "Miky", numeroTelefono: "40", image: #imageLiteral(resourceName: "Tulipani"))
     
-   @Published var utenti : [Utente] = [Utente(nome: "Pippo", cognome: "baudo", nickname: "Poppi", numeroTelefono: "30", image: #imageLiteral(resourceName: "Tulipani")),Utente(nome: "Michele", cognome: "Manniello", nickname: "Miky", numeroTelefono: "40", image: #imageLiteral(resourceName: "Tulipani"))]
+   @Published var utenti : [Utente] = [Utente(nome: "Pippo", cognome: "baudo", nickname: "Poppi", numeroTelefono: "30", image: #imageLiteral(resourceName: "Tulipani")),Utente(nome: "Michele", cognome: "Manniello", nickname: "Miky", numeroTelefono: "40", image: #imageLiteral(resourceName: "Tulipani")),Utente(nome: "Nicola", cognome: "Manniello", nickname: "Nick", numeroTelefono: "20", image: #imageLiteral(resourceName: "Busta"))]
 //    creazione conversazione
     @Published var elencoChat : [Chat] =
         [Chat(image: "Tulipani", messaggi: [Messaggi(testo: "Ciao", data: Date(),telefono: "30")],telefono: "30")]
+
     
     func AddMessage(txt: String,chat: Chat,utente : Utente) {
         chat.messaggi.append(Messaggi(testo: txt, data: Date(),telefono: utente.numeroTelefono))
@@ -31,6 +32,18 @@ class Gestione: NSObject,ObservableObject{
             }
         }
         return Utente(nome: "", cognome: "", nickname: "", numeroTelefono: "", image: #imageLiteral(resourceName: "Busta"))
+    }
+    func ControlloAggiuntaChat(chat : Chat){
+        var trovato = false
+        for chati in elencoChat {
+            if(chat.telefono == chati.telefono){
+                trovato = true
+            }
+        }
+        if(trovato == false){
+            elencoChat.append(chat)
+        }
+        
     }
     
     

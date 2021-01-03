@@ -46,6 +46,11 @@ struct ChatView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing:Image(uiImage:Dati.trovaUtenti(telefono: chat.telefono)!.image).resizable().frame(width: 40, height: 40).clipShape(Circle()))
         .navigationBarTitle(Dati.trovaUtenti(telefono: chat.telefono)!.nome)
+        .onDisappear{
+//                aggiungere la chat se non è presente, peroblema con la creazione.
+            Dati.ControlloAggiuntaChat(chat: chat)
+            
+        }
         
 
     }

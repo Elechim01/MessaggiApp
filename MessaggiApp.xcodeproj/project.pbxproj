@@ -23,6 +23,8 @@
 		D1E957E225A08CDC00367411 /* contatti.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E957E125A08CDC00367411 /* contatti.swift */; };
 		D1E957E625A0918000367411 /* Dati.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E957E525A0918000367411 /* Dati.swift */; };
 		D1E957ED25A097F800367411 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E957EC25A097F800367411 /* MessageView.swift */; };
+		D1FF375325A26FB90030257D /* SezioneUtenteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FF375225A26FB90030257D /* SezioneUtenteView.swift */; };
+		D1FF375625A27D130030257D /* Appunti in Resources */ = {isa = PBXBuildFile; fileRef = D1FF375525A27D130030257D /* Appunti */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		D1E957E125A08CDC00367411 /* contatti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contatti.swift; sourceTree = "<group>"; };
 		D1E957E525A0918000367411 /* Dati.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dati.swift; sourceTree = "<group>"; };
 		D1E957EC25A097F800367411 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		D1FF375225A26FB90030257D /* SezioneUtenteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SezioneUtenteView.swift; sourceTree = "<group>"; };
+		D1FF375525A27D130030257D /* Appunti */ = {isa = PBXFileReference; lastKnownFileType = text; path = Appunti; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				D1033F9925A0EFBB00701100 /* UtenteView.swift */,
+				D1FF375225A26FB90030257D /* SezioneUtenteView.swift */,
 			);
 			path = Utenti;
 			sourceTree = "<group>";
@@ -143,6 +148,7 @@
 				D1E957CD25A075A400367411 /* Assets.xcassets */,
 				D1E957D225A075A400367411 /* Info.plist */,
 				D1E957CF25A075A400367411 /* Preview Content */,
+				D1FF375525A27D130030257D /* Appunti */,
 			);
 			path = MessaggiApp;
 			sourceTree = "<group>";
@@ -234,6 +240,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1FF375625A27D130030257D /* Appunti in Resources */,
 				D1E957D125A075A400367411 /* Preview Assets.xcassets in Resources */,
 				D1E957CE25A075A400367411 /* Assets.xcassets in Resources */,
 			);
@@ -250,6 +257,7 @@
 				D1E957E625A0918000367411 /* Dati.swift in Sources */,
 				D1033F9A25A0EFBB00701100 /* UtenteView.swift in Sources */,
 				D1E957CC25A075A200367411 /* ContentView.swift in Sources */,
+				D1FF375325A26FB90030257D /* SezioneUtenteView.swift in Sources */,
 				D1E957E225A08CDC00367411 /* contatti.swift in Sources */,
 				D18E74D125A125D50001457B /* CampiDiTesto.swift in Sources */,
 				D1033F8D25A0E0D000701100 /* SceltaMultipla.swift in Sources */,

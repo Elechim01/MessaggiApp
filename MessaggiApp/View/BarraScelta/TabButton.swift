@@ -19,7 +19,7 @@ struct TabButton: View {
                 
                 ZStack {
                     Circle()
-                        .frame(width: 60, height: 60,alignment: .center)
+                        .frame(width: 45, height: 45,alignment: .center)
                         .foregroundColor(image == immagineSelezionata ? Color.orange : Color.gray.opacity(0.4))
                         .padding()
                     Image(image)

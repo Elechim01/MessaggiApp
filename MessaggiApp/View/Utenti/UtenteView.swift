@@ -9,13 +9,40 @@
 import SwiftUI
 
 struct UtenteView: View {
+    @EnvironmentObject var gestioneDati : Gestione
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color.green.ignoresSafeArea(.all,edges: .all)
+            VStack {
+                Text("Utenti")
+                    .font(.system(size: 40))
+                    .foregroundColor(.black)
+                ForEach(gestioneDati.utenti){ utenti in
+                    if gestioneDati.Prorpietario.numeroTelefono != utenti.numeroTelefono{
+                    NavigationLink(
+                         destination: ChatView(chat: Chat(image: utenti.image.description, messaggi: [], telefono: utenti.numeroTelefono))
+//                            con il Disappear non ha problemi
+//                            .onDisappear{
+//                            gestioneDati.elencoChat.append()
+//                        }
+                        ,label: {
+                    SezioneUtenteView(utente: utenti)
+                        .frame(height: 55)
+                        .background(Color.white)
+                        .clipShape(Capsule())
+                        .padding(.leading,20)
+                        .padding(.trailing,20)
+                        })
+                    }
+                }
+                Spacer()
+            }
+        }
     }
 }
 
 struct UtenteView_Previews: PreviewProvider {
     static var previews: some View {
-        UtenteView()
+        UtenteView().environmentObject(Gestione())
     }
 }

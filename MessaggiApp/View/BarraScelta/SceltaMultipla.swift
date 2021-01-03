@@ -17,10 +17,11 @@ struct SceltaMultipla: View {
     var body: some View {
         
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom), content: {
+            Color.green.ignoresSafeArea(.all,edges: .all)
             TabView(selection: $selectTabbar){
                     Home().environmentObject(gestionedati)
                         .tag("messaggi")
-                    Impostazioni()
+                Impostazioni().environmentObject(gestionedati)
                         .tag("impostazioni")
                     UtenteView()
                         .tag("utente")
@@ -35,7 +36,7 @@ struct SceltaMultipla: View {
                                }
                            }
                        }
-            .frame(height: 70)
+            .frame(height: 55)
                 .padding(.horizontal,25)
                 .padding(.vertical,5)
                 .background(Color.white)
@@ -44,7 +45,6 @@ struct SceltaMultipla: View {
                 .shadow(color: Color.black.opacity(0.15), radius: 5, x: -5, y: -5)
                 .padding(.horizontal)
         })
-        .background(Color.green.ignoresSafeArea(.all,edges: .all))
         .ignoresSafeArea(.keyboard,edges: .bottom)
         }
         

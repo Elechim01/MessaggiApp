@@ -17,51 +17,54 @@ struct Home: View {
     
     var body: some View {
 //        NavigationView {
+        ZStack {Color.green.ignoresSafeArea(.all,edges: .all)
             VStack {
-                    Text("Messaggi")
-                        .font(.system(size: 40))
-                        .padding(.top,50)
-                    HStack{
-                        Image(systemName: "magnifyingglass")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .padding(.leading,15)
-                            TextField("Cerca", text: $cerca)
-                                .foregroundColor(.black)
-                                .padding(10)
-                                .padding(.trailing,30)
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(30)
+                        Text("Messaggi")
+                            .font(.system(size: 40))
+                        HStack{
+                            Image(systemName: "magnifyingglass")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .padding(.leading,15)
+                                TextField("Cerca", text: $cerca)
+                                    .foregroundColor(.black)
+                                    .padding(10)
+                                    .padding(.trailing,30)
+                                    .background(Color.gray.opacity(0.1))
+                                    .cornerRadius(30)
 
-                    }.background(Color.white)
-                    .background(Color.gray.opacity(0.06),alignment: .center)
-                    .cornerRadius(30)
-                    .padding(.leading,10)
-                    .padding(.trailing,10)
-                    .padding(.top,10)
-                    ScrollView{
-                        ForEach(gestioneDati.elencoChat){ ele in
-                            NavigationLink(
-                                destination: ChatView( chat: ele).environmentObject(gestioneDati)
-                                ,label: {
-                                    contatti(utente: gestioneDati.trovaUtenti(telefono: ele.telefono)!)
-                                        .frame(height:50)
-                                        .background(Color.white)
-                                        .cornerRadius(50)
-                                        .padding(.top,10)
-                                        .padding(.leading,10)
-                                        .padding(.trailing,10)
-                                })
-                           
+                        }.background(Color.white)
+                        .background(Color.gray.opacity(0.06),alignment: .center)
+                        .cornerRadius(30)
+                        .padding(.leading,10)
+                        .padding(.trailing,10)
+                        .padding(.top,10)
+                        ScrollView{
+                            ForEach(gestioneDati.elencoChat){ ele in
+                                NavigationLink(
+                                    destination: ChatView( chat: ele).environmentObject(gestioneDati)
+                                    ,label: {
+                                        contatti(utente: gestioneDati.trovaUtenti(telefono: ele.telefono)!)
+                                            .frame(height:50)
+                                            .background(Color.white)
+                                            .cornerRadius(50)
+                                            .padding(.top,10)
+                                            .padding(.leading,10)
+                                            .padding(.trailing,10)
+                                    })
+
+                            }
                         }
-                    }
-                    .padding()
-                    .padding(.bottom,edge!.bottom - 70)
-                    
+                        .padding()
+//                        .padding(.bottom,edge!.bottom - 70)
+
             }
-            .padding(.bottom,edge!.bottom - 70)
-            .background(Color.green)
-            .ignoresSafeArea(.all,edges: .all)
+//            .padding(.bottom,edge!.bottom - 70)
+        }
+          
+//            .background(Color.green)
+//            .ignoresSafeArea(.all,edges: .all)
+
             
 //        }
     }
