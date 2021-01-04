@@ -57,9 +57,9 @@ struct ChatView: View {
 }
 
 struct ChatView_Previews: PreviewProvider {
-    static var propri = Utente(nome: "Michele",cognome: "gari",nickname: "Pippo",numeroTelefono: "", image:
+    static var propri = Utente(nome: "Michele",cognome: "gari", idf: "",nickname: "Pippo",numeroTelefono: "", image:
                                 UIImage(imageLiteralResourceName: "Tulipani"))
-    static var utente = Utente(nome: "Pippo",cognome: "gari",nickname: "Pippo",numeroTelefono: "", image:
+    static var utente = Utente(nome: "Pippo",cognome: "gari", idf: "",nickname: "Pippo",numeroTelefono: "", image:
                                 UIImage(imageLiteralResourceName: "Tulipani"))
     static var messagg01 = Messaggi(testo: "Ciao", data: Date(),telefono: "30")
     static var messagg02 = Messaggi(testo: "Ciao", data: Date(), telefono: "40")

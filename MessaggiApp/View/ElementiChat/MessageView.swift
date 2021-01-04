@@ -46,6 +46,6 @@ struct MessageView: View {
 
 struct MessageView_Previews: PreviewProvider {
     static var previews: some View {
-        MessageView(utenteMess: Utente(nome: "", cognome: "", nickname: "", numeroTelefono: "", image: #imageLiteral(resourceName: "Busta")), messaggio: Messaggi(testo: "Hello", data: Date(),telefono : "40")).environmentObject(Gestione())
+        MessageView(utenteMess: Utente(nome: "", cognome: "", idf: "", nickname: "", numeroTelefono: "", image: #imageLiteral(resourceName: "Busta")), messaggio: Messaggi(testo: "Hello", data: Date(),telefono : "40")).environmentObject(Gestione())
     }
 }

@@ -43,6 +43,6 @@ struct SezioneUtenteView: View {
 
 struct SezioneUtenteView_Previews: PreviewProvider {
     static var previews: some View {
-        SezioneUtenteView(utente: Utente(nome: "m", cognome: "", nickname: "pippo", numeroTelefono: "", image: #imageLiteral(resourceName: "Tulipani")))
+        SezioneUtenteView(utente: Utente(nome: "m", cognome: "", idf: "", nickname: "pippo", numeroTelefono: "", image: #imageLiteral(resourceName: "Tulipani")))
     }
 }

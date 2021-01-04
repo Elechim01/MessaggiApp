@@ -11,7 +11,7 @@ struct SceltaMultipla: View {
     
     @EnvironmentObject var gestionedati : Gestione
     
-    var utente = Utente(nome: "Pippo", cognome: "", nickname: "", numeroTelefono: "", image: UIImage(imageLiteralResourceName: "Tulipani"))
+    var utente = Utente(nome: "Pippo", cognome: "", idf: "", nickname: "", numeroTelefono: "", image: UIImage(imageLiteralResourceName: "Tulipani"))
     @State var selectTabbar: String = "messaggi"
     @State var edge = UIApplication.shared.windows.first?.safeAreaInsets
     var body: some View {
