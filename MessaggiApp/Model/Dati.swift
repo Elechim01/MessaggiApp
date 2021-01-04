@@ -46,6 +46,38 @@ class Gestione: NSObject,ObservableObject{
         
     }
     
+    func RicercaElementi(cerca : String) -> [Chat] {
+        var chattrovate :[Chat] = []
+        if cerca == "" {
+            return elencoChat
+        }else{
+//            trovare gli utenti e confrontare il nome
+            for chat in elencoChat {
+                if ControllaCaratteri(stringaDacontrollare: trovaUtenti(telefono: chat.telefono)!.nickname ,cerca:cerca) == true{
+                    chattrovate.append(chat)
+                }
+            }
+            
+        }
+        return chattrovate
+    }
+//    Funzione che controlla carattere per carattere
+    func ControllaCaratteri(stringaDacontrollare : String, cerca: String) -> Bool {
+        let controllare  = Array(stringaDacontrollare)
+        let cercaChar = Array(cerca)
+//        ciclo che controlla la stringa
+        for control in controllare {
+//            ciclo che controlla il cerca
+            for cer in cercaChar {
+                if control == cer {
+                    return true
+                }
+            }
+            
+        }
+        return false
+    }
+    
     
     
 }

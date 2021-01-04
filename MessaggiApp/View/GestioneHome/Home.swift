@@ -40,7 +40,7 @@ struct Home: View {
                         .padding(.trailing,10)
                         .padding(.top,10)
                         ScrollView{
-                            ForEach(gestioneDati.elencoChat){ ele in
+                            ForEach(gestioneDati.RicercaElementi(cerca: cerca)){ ele in
                                 NavigationLink(
                                     destination: ChatView( chat: ele).environmentObject(gestioneDati)
                                     ,label: {
