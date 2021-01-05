@@ -71,7 +71,7 @@ struct Home: View {
 }
 
 struct Home_Previews: PreviewProvider {
-    static var utente = Utente(nome: "Pippo", cognome: "", idf: "", nickname: "", numeroTelefono: "", image: UIImage(imageLiteralResourceName: "Tulipani"))
+    static var utente = Utente(nome: "Pippo", cognome: "", idf: "", nickname: "", numeroTelefono: "", image: "Tulipani")
     static var previews: some View {
         Home().environmentObject(Gestione())
     }

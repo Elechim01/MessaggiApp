@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct contatti: View {
     var utente : Utente
@@ -15,11 +16,17 @@ struct contatti: View {
                     Circle()
                         .stroke(Color.black,lineWidth: 2)
                         .frame(width: 41, height: 41)
-                        
-                    Image(uiImage: utente.image)
+                    if utente.image != ""{
+                    WebImage(url: URL(string: utente.image))
                     .resizable()
                     .frame(width:41,height: 41)
                     .clipShape(Circle())
+                    }else{
+                        Image("Busta")
+                            .resizable()
+                            .frame(width:41,height: 41)
+                            .clipShape(Circle())
+                    }
                 }
                 .padding()
                 Text(utente.nickname)
@@ -34,6 +41,6 @@ struct contatti: View {
 }
 struct contatti_Previews: PreviewProvider {
     static var previews: some View {
-        contatti(utente : Utente(nome: "Michele", cognome: "Manniello", idf: "", nickname: "Miky", numeroTelefono: "+393381356237", image: UIImage(imageLiteralResourceName: "Tulipani")))
+        contatti(utente : Utente(nome: "Michele", cognome: "Manniello", idf: "", nickname: "Miky", numeroTelefono: "+393381356237", image:  "Tulipani"))
     }
 }

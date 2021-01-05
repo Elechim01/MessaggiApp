@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		D1033F8D25A0E0D000701100 /* SceltaMultipla.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1033F8C25A0E0D000701100 /* SceltaMultipla.swift */; };
 		D1033F9325A0EF5C00701100 /* Impostazioni.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1033F9225A0EF5C00701100 /* Impostazioni.swift */; };
 		D1033F9A25A0EFBB00701100 /* UtenteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1033F9925A0EFBB00701100 /* UtenteView.swift */; };
+		D12D31A325A47DC4001089D2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D12D31A225A47DC4001089D2 /* SDWebImageSwiftUI */; };
 		D140B71D25A3C48100F03489 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D140B71C25A3C48100F03489 /* GoogleService-Info.plist */; };
 		D17E556225A11ADE008D089E /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E556125A11ADE008D089E /* TabButton.swift */; };
 		D18E74CD25A120270001457B /* RegistrazioneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E74CC25A120270001457B /* RegistrazioneView.swift */; };
@@ -61,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D12D31A325A47DC4001089D2 /* SDWebImageSwiftUI in Frameworks */,
 				DBC33802787327F0318B41EF /* Pods_MessaggiApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,7 +201,6 @@
 				1DE3E2D8A66A99058AEABA49 /* Pods-MessaggiApp.debug.xcconfig */,
 				63BE879FC5C4D7F4ED58FD8C /* Pods-MessaggiApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -229,6 +230,9 @@
 			dependencies = (
 			);
 			name = MessaggiApp;
+			packageProductDependencies = (
+				D12D31A225A47DC4001089D2 /* SDWebImageSwiftUI */,
+			);
 			productName = MessaggiApp;
 			productReference = D1E957C625A075A200367411 /* MessaggiApp.app */;
 			productType = "com.apple.product-type.application";
@@ -256,6 +260,9 @@
 				Base,
 			);
 			mainGroup = D1E957BD25A075A100367411;
+			packageReferences = (
+				D12D31A125A47DC4001089D2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			productRefGroup = D1E957C725A075A200367411 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -529,6 +536,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D12D31A125A47DC4001089D2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D12D31A225A47DC4001089D2 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D12D31A125A47DC4001089D2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D1E957BE25A075A100367411 /* Project object */;
 }

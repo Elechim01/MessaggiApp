@@ -20,7 +20,7 @@ struct UtenteView: View {
                 ForEach(gestioneDati.utenti){ utenti in
                     if gestioneDati.Prorpietario.numeroTelefono != utenti.numeroTelefono{
                     NavigationLink(
-                         destination: ChatView(chat: Chat(image: utenti.image.description, messaggi: [], telefono: utenti.numeroTelefono))
+                        destination: ChatView(chat: Chat(image: utenti.image.description, messaggi: [], telefono: utenti.numeroTelefono, idf: ""))
 //                            con il Disappear non ha problemi
 //                            .onDisappear{
 //                            gestioneDati.elencoChat.append()

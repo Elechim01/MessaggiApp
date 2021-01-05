@@ -9,14 +9,16 @@ import SwiftUI
 
 struct MessageView: View {
     @EnvironmentObject var Dati : Gestione
+//    CONTROLLO FATTO SUL MITTENTE
 //    var propietario : Utente
      var utenteMess : Utente
     var messaggio : Messaggi
     var body: some View {
             HStack{
-                if utenteMess.nome == Dati.Prorpietario.nome{Spacer(minLength: 0)}
-            
-                VStack(alignment: utenteMess.nome == Dati.Prorpietario.nome ?.leading :.trailing,spacing:5){
+                if utenteMess.numeroTelefono == Dati.Prorpietario.numeroTelefono{
+                    Spacer(minLength: 0)
+                }
+                VStack(alignment: utenteMess.numeroTelefono == Dati.Prorpietario.numeroTelefono ?.leading :.trailing,spacing:5){
                     Text("\(messaggio.testo)")
                         .fontWeight(.semibold)
                         .frame(height: 10)
@@ -29,15 +31,19 @@ struct MessageView: View {
                         .clipShape(Capsule())
                         
                     Text(messaggio.data,style: .time)
-                        .frame(alignment: utenteMess.nome == Dati.Prorpietario.nome ?.leading :.trailing )
+                        .frame(alignment: utenteMess.numeroTelefono == Dati.Prorpietario.numeroTelefono ?.leading :.trailing )
             }
                 
-                if utenteMess.nome != Dati.Prorpietario.nome {Spacer(minLength: 0)}
+                if utenteMess.numeroTelefono != Dati.Prorpietario.numeroTelefono {
+                    Spacer(minLength: 0)
+                    
+                }
             }
 //            .background(Color.blue)
             .padding()
             .onAppear{
                 print(utenteMess.nickname)
+//                print(messaggio.telefono)
             }
 //            .background(Color.green)
 //            .ignoresSafeArea(.all,edges: .all)
@@ -46,6 +52,6 @@ struct MessageView: View {
 
 struct MessageView_Previews: PreviewProvider {
     static var previews: some View {
-        MessageView(utenteMess: Utente(nome: "", cognome: "", idf: "", nickname: "", numeroTelefono: "", image: #imageLiteral(resourceName: "Busta")), messaggio: Messaggi(testo: "Hello", data: Date(),telefono : "40")).environmentObject(Gestione())
+        MessageView(utenteMess: Utente(nome: "", cognome: "", idf: "", nickname: "", numeroTelefono: "", image: "Busta"), messaggio: Messaggi(testo: "Ciao",idf: "", data: Date(), mittente:"", destinatario: "")).environmentObject(Gestione())
     }
 }

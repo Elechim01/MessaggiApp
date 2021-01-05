@@ -6,4 +6,11 @@ firebase per effettuare lo store di immagini -> FirebaseStorage
 COSA MANCA
 -parte di firebase
 -impostazioni
--operazioni di eliminazione. 
+-operazioni di eliminazione.
+// vecchie regole
+Problema image: non è possbile salvare un immagine, soluzione -> aprire l'immagine dal web in locale. 
+<--- if request.auth != null;-->
+problema messaggi non è possibile effettuare 2 richieste comtemporaneamente
+
+Per i messaggi il controllo va fatto sul mittente.
+
