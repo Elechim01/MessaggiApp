@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RegistrazioneView: View {
+    @EnvironmentObject var gestioneDati : Gestione
+    @AppStorage("StatoAccesso") var valoreAggiunto:Int = 0
     @State var nome : String = ""
     @State var cognome : String = ""
     @State var nckname : String = ""
@@ -37,7 +39,9 @@ struct RegistrazioneView: View {
                         CampiDiTesto(credenzialale: "Telefono", valoreTex: $numerotelefono)
                     
                         Button(action: {
-                            
+                            gestioneDati.AggiungiUtente(utente:
+                        Utente(nome: nome, cognome: cognome, idf: "", nickname: nckname, numeroTelefono: numerotelefono, image: ""))
+                            valoreAggiunto = 2
                         }, label: {
                             Text("Conferma")
                                 .foregroundColor(.black)
@@ -62,6 +66,6 @@ struct RegistrazioneView: View {
 
 struct RegistrazioneView_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrazioneView()
+        RegistrazioneView().environmentObject(Gestione())
     }
 }

@@ -21,7 +21,7 @@ struct SceltaMultipla: View {
             TabView(selection: $selectTabbar){
                     Home().environmentObject(gestionedati)
                         .tag("messaggi")
-                Impostazioni()
+                Impostazioni().environmentObject(gestionedati)
                         .tag("impostazioni")
                 UtenteView().environmentObject(gestionedati)
                         .tag("utente")

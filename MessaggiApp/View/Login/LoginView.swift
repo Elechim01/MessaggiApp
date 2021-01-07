@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var telefono : String
+    @EnvironmentObject var dati : Gestione
+    @AppStorage("StatoAccesso") var valoreAggiunto:Int = 0
+    @State var telefono : String = ""
     var body: some View {
             VStack{
                 Text("Benvenuto")
@@ -19,7 +21,7 @@ struct LoginView: View {
                     .padding()
                 ZStack(alignment: .center, content: {
                     VStack {
-                        TextField("numero di telefono", text: $telefono)
+                        TextField("numero di telefono", text: $dati.numeroTelefono)
 //                            .textFieldStyle(RoundedBorderTextFieldStyle())
                             .foregroundColor(.black)
                             .padding(.vertical,10)
@@ -31,7 +33,12 @@ struct LoginView: View {
                             .padding(.top)
                             .padding(.bottom)
                         Button(action: {
-
+                            dati.isLoading.toggle()
+                            dati.controlloUtente()
+                            if(dati.numeroNonValido == false){
+                                dati.isLoading.toggle()
+                                dati.Autenticazione()
+                            }
                         }, label: {
                             Text("Login")
                                 .foregroundColor(.white)
@@ -41,9 +48,9 @@ struct LoginView: View {
                         .clipShape(Capsule())
                         .padding(.top)
                         .padding(.bottom)
-
+                        
                     Button(action: {
-
+                        valoreAggiunto = 3
                     }, label: {
                         Text("Registrati")
                             .foregroundColor(.white)
@@ -62,13 +69,14 @@ struct LoginView: View {
 
                 Spacer()
             }.background(Color.green.ignoresSafeArea(.all,edges: .all))
+          
         }
     }
 
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(telefono: "")
+        LoginView().environmentObject(Gestione())
     }
 }
 

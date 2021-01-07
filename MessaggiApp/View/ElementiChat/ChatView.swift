@@ -25,7 +25,8 @@ struct ChatView: View {
                                 .onAppear{
 //                                    Filtro i messaggi che sono diretti a noi
                                     let mess = Dati.FiltroMessaggi(altroUtente: Dati.trovaUtenti(telefono: chat.telefono)!)
-                                    if messagge.id == mess.last!.id && scrolled{
+                                    print("☠️data messaggio \(messagge.data), mess \(mess.last!.data)")
+                                    if messagge.id == mess.last!.id && !scrolled{
                                         reader.scrollTo(mess.last!.id,anchor:.bottom)
                                         scrolled = true
                                     }
