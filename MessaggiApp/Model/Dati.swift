@@ -32,7 +32,8 @@ class Gestione: ObservableObject{
 //    Valore che controlla il login, la registazione, e l'accesso
 //    inizlamente settato a 0
     @AppStorage("StatoAccesso") var valoreAggiunto:Int = 0
-    @AppStorage("NumeroTelefono") var numeroTelefonoPermanente: String = "+393381356237"
+    @AppStorage("NumeroTelefono") var numeroTelefonoPermanente: String = "40"
+    //"40" //"+393381356237"
     
 //    Imeplemntare errori
     @Published var numeroNonValido = false
@@ -61,24 +62,30 @@ class Gestione: ObservableObject{
     }
   
 //    Funzione che serve per trovare gli utente in base al numero di telefono
-    func trovaUtenti(telefono: String) -> Utente?{
-        if(Prorpietario.numeroTelefono == telefono){
-            return Prorpietario
-        }else{
-        for ut in utenti {
-            if(ut.numeroTelefono == telefono){
-                print(ut.nome,ut.numeroTelefono)
-                return ut
+    func trovaDestinatario (ut: String,ut1:String) -> Utente?{
+//        Problema che la chat ha 2 utenti che inviano messaggi
+        if (ut == Prorpietario.numeroTelefono){
+            for utt in utenti {
+                if(ut1 == utt.numeroTelefono){
+                    return utt
+                }
             }
+        }else{
+//       significa che  ut1 == Prorpietario.numeroTelefono
+            for utt in utenti {
+                if(utt.numeroTelefono == ut){
+                    return utt
+                }
+            }
+        
         }
         return Utente(nome: "", cognome: "", idf: "", nickname: "", numeroTelefono: "", image: "Tulipani")
-        }
     }
     
     func ControlloAggiuntaChat(chat : Chat){
         var trovato = false
         for chati in elencoChat {
-            if(chat.telefono == chati.telefono){
+            if((chat.ut == chati.ut) || (chat.ut == chat.ut1) || (chat.ut1 == chat.ut1)){
                 trovato = true
             }
         }
@@ -91,19 +98,45 @@ class Gestione: ObservableObject{
     }
     
     func RicercaElementi(cerca : String) -> [Chat] {
+//        1. trovare tutte le chat che contengono il proprietario.
+//        2. Applicare i filtri
         var chattrovate :[Chat] = []
         if cerca == "" {
-            return elencoChat
+//            Controllare
+            return TrovaChat()
         }else{
 //            trovare gli utenti e confrontare il nome
-            for chat in elencoChat {
-                if ControllaCaratteri(stringaDacontrollare: trovaUtenti(telefono: chat.telefono)!.nickname ,cerca:cerca) == true{
+            for chat in TrovaChat() {
+                if ControllaCaratteri(stringaDacontrollare: trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.nickname,cerca:cerca) == true{
                     chattrovate.append(chat)
                 }
             }
-            
         }
         return chattrovate
+    }
+//trovare tutte le chat che contengono il proprietario.
+    func TrovaChat() -> [Chat] {
+        var chat: [Chat] = []
+        for chati in self.elencoChat {
+            if((chati.ut == Prorpietario.numeroTelefono) || (chati.ut1 == Prorpietario.numeroTelefono)){
+                chat.append(chati)
+            }
+        }
+       return chat
+    }
+    
+//    Funzione che trova gli utenti per gestire i messaggi
+    func trovaUtenti(telefono : String) -> Utente {
+        if(telefono == Prorpietario.numeroTelefono){
+            return Prorpietario
+        }else{
+            for utente in utenti{
+                if(utente.numeroTelefono == telefono){
+                    return utente
+                }
+            }
+        }
+return Utente(nome: "", cognome: "", idf: "", nickname: "", numeroTelefono: "", image:  "")
     }
     
 //    Funzione che controlla carattere per carattere
@@ -170,11 +203,12 @@ class Gestione: ObservableObject{
                     let id = doc.document.documentID
                     let msg =  doc.document.data()
                     let image = msg["image"] as? String ?? ""
-                    let telefono = msg["telefono"] as? String ?? ""
+                    let utente = msg["utente"] as? String ?? ""
+                    let utente1 = msg["utente1"] as? String ?? ""
                     DispatchQueue.main.async {
 //                        let c = self.LeggiMessaggio(idf: id)
 //                        print(" ☠️ Ricezione messaggio\(c)")
-                        self.elencoChat.append(Chat(image: image, messaggi: [], telefono:telefono, idf: id))
+                        self.elencoChat.append(Chat(image: image, messaggi: [], ut: utente,ut1: utente1, idf: id))
                     }
                     
                 }
@@ -316,7 +350,8 @@ class Gestione: ObservableObject{
     func AddChat(chat : Chat){
         let db = Firestore.firestore()
         let _ = try! db.collection("Chat").addDocument(data: [
-            "telefono":chat.telefono,
+            "utente":chat.ut1,
+            "utente1": chat.ut,
             "image" : chat.imge
         ], completion: { (err) in
             if err != nil{
@@ -371,12 +406,14 @@ class Chat:Identifiable{
     var id = UUID().uuidString
     var idf : String
     var imge : String
-    var telefono : String // indica il destinatario della chat.
+    var ut : String// utenti
+    var ut1 : String // indica l'atro utente
     var messaggi : [Messaggi]
-    init(image : String,messaggi : [Messaggi], telefono: String,idf:String) {
+    init(image : String,messaggi : [Messaggi], ut: String,ut1: String,idf:String) {
         self.imge = image
         self.messaggi = messaggi
-        self.telefono = telefono
+        self.ut = ut
+        self.ut1 = ut1
         self.idf = idf
     }
     

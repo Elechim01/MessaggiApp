@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 import SDWebImageSwiftUI
 struct ChatView: View {
 //    scaricamento lista di messaggi dal databse
@@ -19,12 +20,15 @@ struct ChatView: View {
                 ScrollView {
                     VStack(spacing:10) {
                         ForEach(Dati.messaggi){ messagge in
-                            if((messagge.destinatario == Dati.Prorpietario.numeroTelefono && messagge.mittente == Dati.trovaUtenti(telefono: chat.telefono)!.numeroTelefono)||(messagge.destinatario == Dati.trovaUtenti(telefono: chat.telefono)!.numeroTelefono && messagge.mittente == Dati.Prorpietario.numeroTelefono)){
+                            if((messagge.destinatario == Dati.Prorpietario.numeroTelefono &&
+                                    messagge.mittente == Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.numeroTelefono ) ||
+                               (messagge.destinatario == Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.numeroTelefono
+                                    && messagge.mittente == Dati.Prorpietario.numeroTelefono)){
                                 
-                            MessageView(utenteMess: Dati.trovaUtenti(telefono: messagge.mittente)!, messaggio: messagge).environmentObject(Dati)
+                            MessageView(utenteMess: Dati.trovaUtenti(telefono: messagge.mittente), messaggio: messagge).environmentObject(Dati)
                                 .onAppear{
 //                                    Filtro i messaggi che sono diretti a noi
-                                    let mess = Dati.FiltroMessaggi(altroUtente: Dati.trovaUtenti(telefono: chat.telefono)!)
+                                    let mess = Dati.FiltroMessaggi(altroUtente: Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!)
                                     print("☠️data messaggio \(messagge.data), mess \(mess.last!.data)")
                                     if messagge.id == mess.last!.id && !scrolled{
                                         reader.scrollTo(mess.last!.id,anchor:.bottom)
@@ -33,7 +37,7 @@ struct ChatView: View {
                                 }
                             }
                         }.onChange(of: Dati.messaggi, perform: { value in
-                            let mess = Dati.FiltroMessaggi(altroUtente: Dati.trovaUtenti(telefono: chat.telefono)!)
+                            let mess = Dati.FiltroMessaggi(altroUtente: Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!)
                             reader.scrollTo(mess.last!.id,anchor:.bottom)
                         })
                     }
@@ -41,22 +45,24 @@ struct ChatView: View {
             }
             Spacer()
             HStack{
-                TextField("  Inserisci messaggio", text: $messaggio)
+                TextEditor(text: $messaggio)
                     .foregroundColor(.black)
+                    .padding(.horizontal)
                     .frame(height: 45)
                     .background(Color.white)
                     .cornerRadius(20)
-                    .padding()
+                
                 Button(action: {
-                    Dati.AddMessage(messag: Messaggi(testo: messaggio, idf: "", data: Date(), mittente: Dati.Prorpietario.numeroTelefono, destinatario: chat.telefono))
+                    Dati.AddMessage(messag: Messaggi(testo: messaggio, idf: "", data: Date(), mittente: Dati.Prorpietario.numeroTelefono, destinatario: Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.numeroTelefono))
                     messaggio = ""
                 }, label: {
                     Image("Mess")
-                        .padding(.trailing,20)
+                        .padding(.trailing,5)
                         .foregroundColor(.blue)
 
                 })
-                            }
+            }
+            .padding()
             .background(Color.black.opacity(0.1))
             .cornerRadius(50)
             .padding(.trailing,10)
@@ -67,15 +73,13 @@ struct ChatView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(
             trailing:
-                WebImage(url: URL(string: Dati.trovaUtenti(telefono:chat.telefono)!.image ))
+                WebImage(url: URL(string: Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.image ))
                                 .resizable().frame(width: 40, height: 40).clipShape(Circle()))
-        .navigationBarTitle(Dati.trovaUtenti(telefono: chat.telefono)!.nome)
+        .navigationBarTitle(Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.nome)
         .onDisappear{
 //                aggiungere la chat se non è presente, peroblema con la creazione.
             Dati.ControlloAggiuntaChat(chat: chat)
-            
         }
-        
 //        Dati.FiltroMessaggi(altroUtente: Dati.trovaUtenti(telefono: chat.telefono)!
     }
 }
@@ -88,7 +92,7 @@ struct ChatView_Previews: PreviewProvider {
     static var messagg01 = Messaggi(testo: "Ciao",idf: "", data: Date(), mittente:"", destinatario: "")
     static var messagg02 = Messaggi(testo: "Ciao",idf: "", data: Date(), mittente:"", destinatario: "")
 //
-    static var chat = Chat(image: "Tulipani", messaggi: [messagg01,messagg02],telefono: "30", idf: "")
+    static var chat = Chat(image: "Tulipani", messaggi: [messagg01,messagg02],ut: "30",ut1: "", idf: "")
     
     static var previews: some View {
         ChatView(chat: chat).environmentObject(Gestione())

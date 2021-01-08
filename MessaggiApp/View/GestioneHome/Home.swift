@@ -44,7 +44,7 @@ struct Home: View {
                                 NavigationLink(
                                     destination: ChatView( chat: ele).environmentObject(gestioneDati)
                                     ,label: {
-                                        contatti(utente: gestioneDati.trovaUtenti(telefono: ele.telefono)!)
+                                        contatti(utente: gestioneDati.trovaDestinatario(ut: ele.ut, ut1: ele.ut1)!)
                                             .frame(height:50)
                                             .background(Color.white)
                                             .cornerRadius(50)
@@ -52,20 +52,15 @@ struct Home: View {
                                             .padding(.leading,10)
                                             .padding(.trailing,10)
                                     })
-
                             }
                         }
                         .padding()
 //                        .padding(.bottom,edge!.bottom - 70)
-
             }
 //            .padding(.bottom,edge!.bottom - 70)
         }
-          
 //            .background(Color.green)
 //            .ignoresSafeArea(.all,edges: .all)
-
-            
 //        }
     }
 }

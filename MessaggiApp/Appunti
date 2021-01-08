@@ -15,30 +15,40 @@ problema messaggi non è possibile effettuare 2 richieste comtemporaneamente
 Per i messaggi il controllo va fatto sul mittente.
 -----------------------------------------------------------------
 Implemntare il Login e la registrazione, quindi:
-- funzione che aggiunge un utente
-- funzione che tiene controlla tutti i numeri per vedere se il nostro è presente,aggiunge il proprietario del telfono.
-- implentazione funzione di login{
-        - implemntare alert in caso il numerosia sbagliato.
-        - implementare l'autenticazione a 2 fattori
-        {
-                - login: 0 -> controllo presenza ,1-> autenticazione 2 fattori
-                - accesso diretto: 2-> già presente e accesso 
-                - registrazione: 3 -> registra 
-               
-        }
-        
-        - implementare la sequenza di numeri
-    }
+✅ - funzione che aggiunge un utente
+✅ - funzione che tiene controlla tutti i numeri per vedere se il nostro è presente,aggiunge il proprietario del telfono.
+✅ - implentazione funzione di login{
+✅         - implemntare alert in caso il numerosia sbagliato.
+✅         - implementare l'autenticazione a 2 fattori
+✅         {
+✅                 - login: 0 -> controllo presenza ,1-> autenticazione 2 fattori
+✅                 - accesso diretto: 2-> già presente e accesso
+✅                 - registrazione: 3 -> registra
+✅         }
+✅         - implementare la sequenza di numeri
+✅     }
     
-- salvare l'utente nel dispositivo -> Salvo il numero con il quale trovo il propeitario,poi  lo stato di registrazione
-- Registrazione:
-- fare al logout.
-- rifare il ControlloAggiuntaChat
-!! Problema aggiunta chat  Rivedere Formazione Chat.
-
-
-ALLA FINE
---implentare le log view, per le richeiste al databse.
+✅ - salvare l'utente nel dispositivo -> Salvo il numero con il quale trovo il propeitario,poi  lo stato di registrazione
+✅ - Registrazione:
+✅ - fare al logout.
+✅ - rifare il ControlloAggiuntaChat
+✅ !! Problema aggiunta chat  Rivedere Formazione Chat.
+✅ risoluzione trovare il propeitario ->
+✅ - trovare che chat che hanno noi e un altro come mittente e destinatario
+✅ fornire il numero del deistinatario.
+✅ --implentare le log view, per le richeiste al databse.
+✅ problema texfield, come metterle su + righe
+-implmentare immagini:
+    {
+        - in fase di registrazione caricare immagini{
+                - caricare immagini
+                - salvarsi l'url
+        }
+        - prevedere sistema che trovi gli url
+    }
+ 
+ 
+ 
 
 
 
