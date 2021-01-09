@@ -14,6 +14,7 @@
 		D12D31A325A47DC4001089D2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D12D31A225A47DC4001089D2 /* SDWebImageSwiftUI */; };
 		D140B71D25A3C48100F03489 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D140B71C25A3C48100F03489 /* GoogleService-Info.plist */; };
 		D174CD3425A75E060071E659 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D174CD3325A75E060071E659 /* LoadingView.swift */; };
+		D174CD6C25A8AEFC0071E659 /* GestioneImmagini.swift in Sources */ = {isa = PBXBuildFile; fileRef = D174CD6B25A8AEFC0071E659 /* GestioneImmagini.swift */; };
 		D17E556225A11ADE008D089E /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17E556125A11ADE008D089E /* TabButton.swift */; };
 		D18E74CD25A120270001457B /* RegistrazioneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E74CC25A120270001457B /* RegistrazioneView.swift */; };
 		D18E74D125A125D50001457B /* CampiDiTesto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18E74D025A125D50001457B /* CampiDiTesto.swift */; };
@@ -41,6 +42,7 @@
 		D1033F9925A0EFBB00701100 /* UtenteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtenteView.swift; sourceTree = "<group>"; };
 		D140B71C25A3C48100F03489 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D174CD3325A75E060071E659 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		D174CD6B25A8AEFC0071E659 /* GestioneImmagini.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestioneImmagini.swift; sourceTree = "<group>"; };
 		D17E556125A11ADE008D089E /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
 		D18E74CC25A120270001457B /* RegistrazioneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrazioneView.swift; sourceTree = "<group>"; };
 		D18E74D025A125D50001457B /* CampiDiTesto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampiDiTesto.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				D1E957E525A0918000367411 /* Dati.swift */,
+				D174CD6B25A8AEFC0071E659 /* GestioneImmagini.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				D1E957E625A0918000367411 /* Dati.swift in Sources */,
 				D1033F9A25A0EFBB00701100 /* UtenteView.swift in Sources */,
 				D1E957CC25A075A200367411 /* ContentView.swift in Sources */,
+				D174CD6C25A8AEFC0071E659 /* GestioneImmagini.swift in Sources */,
 				D1FF375325A26FB90030257D /* SezioneUtenteView.swift in Sources */,
 				D174CD3425A75E060071E659 /* LoadingView.swift in Sources */,
 				D1E957E225A08CDC00367411 /* contatti.swift in Sources */,

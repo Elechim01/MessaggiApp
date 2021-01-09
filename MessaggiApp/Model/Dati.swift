@@ -20,6 +20,7 @@ class Gestione: ObservableObject{
     @Published var Prorpietario : Utente = Utente(nome: "Michele", cognome: "Manniello", idf: "4", nickname: "Miky", numeroTelefono: "40", image: "Tulipani")
     
     @Published var utenti : [Utente] = []
+    @Published var utenteDaAggiungere : Utente = Utente(nome: "", cognome: "", idf: "", nickname: "", numeroTelefono: "", image: "")
 //        [Utente(nome: "Pippo", cognome: "baudo", idf: "", nickname: "Poppi", numeroTelefono: "30", image: #imageLiteral(resourceName: "Tulipani")),Utente(nome: "Michele", cognome: "Manniello", idf: "", nickname: "Miky", numeroTelefono: "40", image: #imageLiteral(resourceName: "Tulipani")),Utente(nome: "Nicola", cognome: "Manniello", nickname: "Nick", numeroTelefono: "20", image: #imageLiteral(resourceName: "Busta"))]
 //    creazione conversazione
     @Published var elencoChat : [Chat] = []
@@ -44,7 +45,12 @@ class Gestione: ObservableObject{
     @Published var alert : Bool = false
     @Published var alertMessage: String = ""
     @Published var isLoading : Bool = false
-
+    
+//    Gestione Immagine
+    @Published var acquisizioneImage : UIImage?
+    @Published var selezionaAcquisizioneImge : Bool = false
+    @Published var url = ""
+    
     init() {
      Lettura()
     LeggiChat()
@@ -161,7 +167,7 @@ return Utente(nome: "", cognome: "", idf: "", nickname: "", numeroTelefono: "", 
     
     func Lettura(){
         let db = Firestore.firestore()
-        db.collection("Utente").getDocuments(completion: { [self](snap,err) in
+        db.collection("Utente").addSnapshotListener({ [self](snap,err) in
             if err != nil{
                 print(err!.localizedDescription)
                 return
@@ -243,14 +249,14 @@ return Utente(nome: "", cognome: "", idf: "", nickname: "", numeroTelefono: "", 
         })
     }
     
-    func AggiungiUtente(utente:Utente){
+    func AggiungiUtente(){
         let db = Firestore.firestore()
         _ = try!db.collection("Utente").addDocument(data: [
-            "Nome":utente.nome,
-            "cognome":utente.cognome,
-            "nickname":utente.nickname,
-            "numeroTelefono":utente.numeroTelefono,
-            "image":utente.image
+            "Nome":self.utenteDaAggiungere.nome,
+            "cognome":self.utenteDaAggiungere.cognome,
+            "nickname":self.utenteDaAggiungere.nickname,
+            "numeroTelefono":self.utenteDaAggiungere.numeroTelefono,
+            "image":self.utenteDaAggiungere.image
         ],completion: { (err) in
             if err != nil{
                 print(err!.localizedDescription)
@@ -310,6 +316,7 @@ return Utente(nome: "", cognome: "", idf: "", nickname: "", numeroTelefono: "", 
     
     func Autenticazione(){
         Auth.auth().settings?.isAppVerificationDisabledForTesting = false
+        Auth.auth().languageCode = "it"
         self.isLoading.toggle()
         PhoneAuthProvider.provider().verifyPhoneNumber("+39"+self.numeroTelefono, uiDelegate: nil) { (CODE, err) in
             self.isLoading.toggle()
@@ -359,6 +366,28 @@ return Utente(nome: "", cognome: "", idf: "", nickname: "", numeroTelefono: "", 
                 return
             }
         })
+    }
+    
+    func CaricaImmagine(){
+//        acquisizioneImage
+        let storage = Storage.storage().reference()
+        let ref = storage.child("immagine _ profilo").child(Auth.auth().currentUser!.uid)
+        let data = acquisizioneImage!.jpegData(compressionQuality: 0.5)!
+        
+        self.isLoading.toggle()
+        ref.child("img\(acquisizioneImage!)").putData(data, metadata: nil) { (_, err) in
+            self.isLoading.toggle()
+            if err != nil{
+                self.alertMessage = err!.localizedDescription
+                self.alert.toggle()
+                return
+            }
+        }
+        ref.child("img\(acquisizioneImage)").downloadURL { (URL, _) in
+            guard let imageUrl = URL else {return}
+            self.url = "\(imageUrl)"
+        }
+        
     }
     
 //    Funzione che aggiunge un utente

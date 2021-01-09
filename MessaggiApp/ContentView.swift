@@ -34,6 +34,16 @@ struct ContentView: View {
             if(gestionedati.isLoading){
                 LoadingView()
             }
+            if(gestionedati.selezionaAcquisizioneImge){
+                CatturaImmagine(image:$gestionedati.acquisizioneImage , isShow: $gestionedati.selezionaAcquisizioneImge)
+                    .onDisappear{
+                        gestionedati.CaricaImmagine()
+                        gestionedati.utenteDaAggiungere.image = gestionedati.url
+                        gestionedati.AggiungiUtente()
+                        
+                        
+                }
+            }
             
         }
         .alert(isPresented: $gestionedati.alert, content: {

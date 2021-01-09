@@ -39,8 +39,9 @@ struct RegistrazioneView: View {
                         CampiDiTesto(credenzialale: "Telefono", valoreTex: $numerotelefono)
                     
                         Button(action: {
-                            gestioneDati.AggiungiUtente(utente:
-                        Utente(nome: nome, cognome: cognome, idf: "", nickname: nckname, numeroTelefono: numerotelefono, image: ""))
+//                            Aggungiamo un immagine
+                            gestioneDati.selezionaAcquisizioneImge.toggle()
+                            gestioneDati.utenteDaAggiungere = Utente(nome: nome, cognome: cognome, idf: "", nickname: nckname, numeroTelefono: numerotelefono, image:gestioneDati.url )
                             valoreAggiunto = 2
                         }, label: {
                             Text("Conferma")

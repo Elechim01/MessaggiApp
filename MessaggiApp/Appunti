@@ -40,7 +40,7 @@ Implemntare il Login e la registrazione, quindi:
 ✅ problema texfield, come metterle su + righe
 -implmentare immagini:
     {
-        - in fase di registrazione caricare immagini{
+                - in fase di registrazione caricare immagini{
                 - caricare immagini
                 - salvarsi l'url
         }
