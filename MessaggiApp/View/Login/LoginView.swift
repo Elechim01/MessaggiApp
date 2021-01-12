@@ -16,12 +16,21 @@ struct LoginView: View {
                 Text("Benvenuto")
                     .font(.system(size: 40))
                     .fontWeight(.bold)
-                    .padding()
+                    .padding(.top)
                 Image("Busta")
                     .padding()
+                    .padding(.bottom)
                 ZStack(alignment: .center, content: {
                     VStack {
-                        TextField("numero di telefono", text: $dati.numeroTelefono)
+                        Text("Numero di telefono")
+                            .font(.title3)
+                            .frame(alignment: .leading)
+                            .padding(.horizontal)
+                            .padding(.top,10)
+//                            .padding(.leading,5)
+                            .padding(.trailing,100)
+                        
+                        TextField("3381352020", text: $dati.numeroTelefono)
 //                            .textFieldStyle(RoundedBorderTextFieldStyle())
                             .foregroundColor(.black)
                             .padding(.vertical,10)
@@ -30,15 +39,15 @@ struct LoginView: View {
                             .cornerRadius(20)
                             .padding(.leading,30)
                             .padding(.trailing,30)
-                            .padding(.top)
-                            .padding(.bottom)
+//                            .padding(.top)
+                            .padding(.bottom,10)
                         Button(action: {
                             dati.isLoading.toggle()
                             dati.controlloUtente()
-                            if(dati.numeroNonValido == false){
-                                dati.isLoading.toggle()
-                                dati.Autenticazione()
-                            }
+//                            if(dati.numeroNonValido == false){
+//                                dati.isLoading.toggle()
+//                                dati.Autenticazione()
+//                            }
                         }, label: {
                             Text("Login")
                                 .foregroundColor(.white)
@@ -46,8 +55,8 @@ struct LoginView: View {
                         .frame(width: 200, height: 30)
                         .background(Color.red)
                         .clipShape(Capsule())
-                        .padding(.top)
-                        .padding(.bottom)
+//                        .padding(.top)
+//                        .padding(.bottom)
                         
                     Button(action: {
                         valoreAggiunto = 3
@@ -58,13 +67,13 @@ struct LoginView: View {
                     .frame(width: 200, height: 30)
                     .background(Color.red)
                     .clipShape(Capsule())
-                    .padding(.top)
-                    .padding(.bottom)
+                    .padding(.top,10)
+                    .padding(.bottom,10)
                     }
                 })
                 .background(Color.white.cornerRadius(50))
-                .padding(.leading,8)
-                .padding(.trailing,8)
+                .padding(.leading,20)
+                .padding(.trailing,20)
                 .padding(.bottom)
 
                 Spacer()

@@ -40,9 +40,11 @@ struct Home: View {
                         .padding(.trailing,10)
                         .padding(.top,10)
                         ScrollView{
+//
                             ForEach(gestioneDati.RicercaElementi(cerca: cerca)){ ele in
                                 NavigationLink(
-                                    destination: ChatView( chat: ele).environmentObject(gestioneDati)
+                                    destination: ChatView(chat: ele)
+                                        .environmentObject(gestioneDati)
                                     ,label: {
                                         contatti(utente: gestioneDati.trovaDestinatario(ut: ele.ut, ut1: ele.ut1)!)
                                             .frame(height:50)
@@ -51,6 +53,9 @@ struct Home: View {
                                             .padding(.top,10)
                                             .padding(.leading,10)
                                             .padding(.trailing,10)
+                                            .onAppear{
+                                                
+                                            }
                                     })
                             }
                         }
@@ -66,7 +71,7 @@ struct Home: View {
 }
 
 struct Home_Previews: PreviewProvider {
-    static var utente = Utente(nome: "Pippo", cognome: "", idf: "", nickname: "", numeroTelefono: "", image: "Tulipani")
+    static var utente = Utente(nome: "Pippo", cognome: "", idf: "", nickname: "", numeroTelefono: "", percorsoimage: "Tulipani")
     static var previews: some View {
         Home().environmentObject(Gestione())
     }

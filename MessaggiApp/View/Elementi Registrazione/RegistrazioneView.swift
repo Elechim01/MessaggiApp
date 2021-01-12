@@ -41,7 +41,7 @@ struct RegistrazioneView: View {
                         Button(action: {
 //                            Aggungiamo un immagine
                             gestioneDati.selezionaAcquisizioneImge.toggle()
-                            gestioneDati.utenteDaAggiungere = Utente(nome: nome, cognome: cognome, idf: "", nickname: nckname, numeroTelefono: numerotelefono, image:gestioneDati.url )
+                            gestioneDati.utenteDaAggiungere = Utente(nome: nome, cognome: cognome, idf: "", nickname: nckname, numeroTelefono: numerotelefono, percorsoimage:"")
                             valoreAggiunto = 2
                         }, label: {
                             Text("Conferma")

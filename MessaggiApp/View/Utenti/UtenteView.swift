@@ -18,13 +18,10 @@ struct UtenteView: View {
                     .font(.system(size: 40))
                     .foregroundColor(.black)
                 ForEach(gestioneDati.utenti){ utenti in
-                    if gestioneDati.Prorpietario.numeroTelefono != utenti.numeroTelefono{
-                    NavigationLink(
-                        destination: ChatView(chat: Chat(image: utenti.image.description, messaggi: [], ut: utenti.numeroTelefono,ut1: gestioneDati.Prorpietario.numeroTelefono, idf: ""))
+                    if(utenti.numeroTelefono != gestioneDati.Prorpietario.numeroTelefono){
+                        NavigationLink(
+                        destination: ChatView(chat: Chat(percorsoimage: utenti.percorsoimage, messaggi: [], ut: utenti.numeroTelefono,ut1: gestioneDati.Prorpietario.numeroTelefono, idf: "")).environmentObject(gestioneDati)
 //                            con il Disappear non ha problemi
-//                            .onDisappear{
-//                            gestioneDati.elencoChat.append()
-//                        }
                         ,label: {
                     SezioneUtenteView(utente: utenti)
                         .frame(height: 55)
@@ -33,8 +30,8 @@ struct UtenteView: View {
                         .padding(.leading,20)
                         .padding(.trailing,20)
                         })
+                        }
                     }
-                }
                 Spacer()
             }
         }

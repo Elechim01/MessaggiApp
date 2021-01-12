@@ -16,8 +16,8 @@ struct contatti: View {
                     Circle()
                         .stroke(Color.black,lineWidth: 2)
                         .frame(width: 41, height: 41)
-                    if utente.image != ""{
-                    WebImage(url: URL(string: utente.image))
+                    if utente.percorsoimage != "" {
+                        Image(uiImage:  utente.image ?? UIImage(imageLiteralResourceName: "Busta"))
                     .resizable()
                     .frame(width:41,height: 41)
                     .clipShape(Circle())
@@ -41,6 +41,6 @@ struct contatti: View {
 }
 struct contatti_Previews: PreviewProvider {
     static var previews: some View {
-        contatti(utente : Utente(nome: "Michele", cognome: "Manniello", idf: "", nickname: "Miky", numeroTelefono: "+393381356237", image:  "Tulipani"))
+        contatti(utente : Utente(nome: "Michele", cognome: "Manniello", idf: "", nickname: "Miky", numeroTelefono: "+393381356237", percorsoimage:  "Tulipani"))
     }
 }

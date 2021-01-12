@@ -14,13 +14,12 @@ struct SezioneUtenteView: View {
         ZStack {
 //            Color.green
             HStack() {
-                
                 ZStack {
                     Circle()
                         .stroke(Color.black,lineWidth:  2)
                         .frame(width: 40, height: 40, alignment: .center)
-                    if  utente.image != ""{
-                    WebImage(url: URL(string:utente.image))
+                    if  utente.percorsoimage != ""{
+                        Image(uiImage: utente.image ?? UIImage(imageLiteralResourceName: "Busta"))
                         .resizable()
                         .frame(width: 40, height: 40, alignment: .center)
                         .clipShape(Circle())
@@ -51,6 +50,6 @@ struct SezioneUtenteView: View {
 
 struct SezioneUtenteView_Previews: PreviewProvider {
     static var previews: some View {
-        SezioneUtenteView(utente: Utente(nome: "m", cognome: "", idf: "", nickname: "pippo", numeroTelefono: "", image: "Busta"))
+        SezioneUtenteView(utente: Utente(nome: "m", cognome: "", idf: "", nickname: "pippo", numeroTelefono: "", percorsoimage: "Busta"))
     }
 }

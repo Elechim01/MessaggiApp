@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 import SDWebImageSwiftUI
+
 struct ChatView: View {
 //    scaricamento lista di messaggi dal databse
     @EnvironmentObject var Dati : Gestione
@@ -67,14 +68,16 @@ struct ChatView: View {
             .cornerRadius(50)
             .padding(.trailing,10)
             .padding(.leading,10)
+            .padding(.top,20)
             
         }
         .background(Color.green.ignoresSafeArea(.all,edges: .all))
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(
             trailing:
-                WebImage(url: URL(string: Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.image ))
-                                .resizable().frame(width: 40, height: 40).clipShape(Circle()))
+//                Image(uiImage:Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.image!)
+                Image("Busta")
+                .resizable().frame(width: 40, height: 40).clipShape(Circle()))
         .navigationBarTitle(Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.nome)
         .onDisappear{
 //                aggiungere la chat se non è presente, peroblema con la creazione.
@@ -85,14 +88,14 @@ struct ChatView: View {
 }
 
 struct ChatView_Previews: PreviewProvider {
-    static var propri = Utente(nome: "Michele",cognome: "gari", idf: "",nickname: "Pippo",numeroTelefono: "40", image:
+    static var propri = Utente(nome: "Michele",cognome: "gari", idf: "",nickname: "Pippo",numeroTelefono: "40", percorsoimage:
                                 "Tulipani")
-    static var utente = Utente(nome: "Pippo",cognome: "gari", idf: "",nickname: "Pippo",numeroTelefono: "30", image:
+    static var utente = Utente(nome: "Pippo",cognome: "gari", idf: "",nickname: "Pippo",numeroTelefono: "30", percorsoimage:
                                "Tulipani")
     static var messagg01 = Messaggi(testo: "Ciao",idf: "", data: Date(), mittente:"", destinatario: "")
     static var messagg02 = Messaggi(testo: "Ciao",idf: "", data: Date(), mittente:"", destinatario: "")
 //
-    static var chat = Chat(image: "Tulipani", messaggi: [messagg01,messagg02],ut: "30",ut1: "", idf: "")
+    static var chat = Chat(percorsoimage: "Tulipani", messaggi: [messagg01,messagg02],ut: "30",ut1: "", idf: "")
     
     static var previews: some View {
         ChatView(chat: chat).environmentObject(Gestione())

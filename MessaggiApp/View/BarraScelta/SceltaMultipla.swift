@@ -11,12 +11,11 @@ struct SceltaMultipla: View {
     
     @EnvironmentObject var gestionedati : Gestione
     
-    var utente = Utente(nome: "Pippo", cognome: "", idf: "", nickname: "", numeroTelefono: "", image:  "Tulipani")
+    var utente = Utente(nome: "Pippo", cognome: "", idf: "", nickname: "", numeroTelefono: "", percorsoimage:  "Tulipani")
     @State var selectTabbar: String = "messaggi"
     @State var edge = UIApplication.shared.windows.first?.safeAreaInsets
     var body: some View {
-        
-        ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom), content: {
+            ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom), content: {
             Color.green.ignoresSafeArea(.all,edges: .all)
             TabView(selection: $selectTabbar){
                     Home().environmentObject(gestionedati)
@@ -46,7 +45,7 @@ struct SceltaMultipla: View {
                 .padding(.horizontal)
         })
         .ignoresSafeArea(.keyboard,edges: .bottom)
-        }
+    }
         
     }
 

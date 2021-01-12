@@ -24,6 +24,7 @@ Implemntare il Login e la registrazione, quindi:
 ✅                 - login: 0 -> controllo presenza ,1-> autenticazione 2 fattori
 ✅                 - accesso diretto: 2-> già presente e accesso
 ✅                 - registrazione: 3 -> registra
+                   - caricamento dati -> 4 inizio in lettura e fine in leggi messaggio 
 ✅         }
 ✅         - implementare la sequenza di numeri
 ✅     }
@@ -38,15 +39,20 @@ Implemntare il Login e la registrazione, quindi:
 ✅ fornire il numero del deistinatario.
 ✅ --implentare le log view, per le richeiste al databse.
 ✅ problema texfield, come metterle su + righe
--implmentare immagini:
-    {
-                - in fase di registrazione caricare immagini{
-                - caricare immagini
-                - salvarsi l'url
-        }
-        - prevedere sistema che trovi gli url
-    }
- 
+✅-implmentare immagini:
+✅    {
+✅                - in fase di registrazione caricare immagini{
+✅                - caricare immagini
+✅                - salvarsi l'url
+✅        }
+✅        - prevedere sistema che trovi gli url
+✅    }
+✅- implementare il trova proprietario nella registrazione
+✅ problemi con la chat, non si aggiunge una nuova, non carica l'imagine.
+✅ capire come far aprire il tipo di dati che viene salvato nel server.
+✅ ridisengare le texfield di inserimento dei numeri, disegnare cosa devono contenre le impostazioni. 
+- impostare un azione che quando si fa uno scorrimento verso il basso riaggiorni i valori.
+- controllare errori con inserimento numeri sbagliati
  
  
 
