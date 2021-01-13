@@ -18,7 +18,7 @@ struct SceltaMultipla: View {
             ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom), content: {
             Color.green.ignoresSafeArea(.all,edges: .all)
             TabView(selection: $selectTabbar){
-                    Home().environmentObject(gestionedati)
+                Home().environmentObject(gestionedati)
                         .tag("messaggi")
                 Impostazioni().environmentObject(gestionedati)
                         .tag("impostazioni")

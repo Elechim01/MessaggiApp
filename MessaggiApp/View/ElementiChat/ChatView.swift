@@ -75,13 +75,16 @@ struct ChatView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(
             trailing:
-//                Image(uiImage:Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.image!)
-                Image("Busta")
-                .resizable().frame(width: 40, height: 40).clipShape(Circle()))
+                Image(uiImage:Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.image!)
+//                Image("Busta")
+                .resizable().frame(width: 40, height: 40).clipShape(Circle())
+        )
         .navigationBarTitle(Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.nome)
         .onDisappear{
 //                aggiungere la chat se non è presente, peroblema con la creazione.
+            chat .image = Dati.trovaUtenti(telefono: Dati.TrovaDestinatarioChat(chat: chat)).image
             Dati.ControlloAggiuntaChat(chat: chat)
+            
         }
 //        Dati.FiltroMessaggi(altroUtente: Dati.trovaUtenti(telefono: chat.telefono)!
     }

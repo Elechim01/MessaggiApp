@@ -56,6 +56,8 @@ class Gestione: ObservableObject{
     @Published var letturaChat : Bool = false
     @Published var letturaMessaggio : Bool = false
     @Published var registrazione : Bool = false
+//    Controllo cariamento iniziale
+    @Published var evitaControlloIniziale : Bool = false
     
     init() {
     LeggiChat()
@@ -79,7 +81,7 @@ class Gestione: ObservableObject{
 //    Funzione che serve per trovare gli utente in base al numero di telefono
     func trovaDestinatario (ut: String,ut1:String) -> Utente?{
 //        Problema che la chat ha 2 utenti che inviano messaggi
-        print(Prorpietario.numeroTelefono)
+        print("Proprietario\(Prorpietario.numeroTelefono)")
         if (ut == Prorpietario.numeroTelefono){
             for utt in utenti {
                 if(ut1 == utt.numeroTelefono){
@@ -105,7 +107,7 @@ class Gestione: ObservableObject{
             return chat.ut
         }
     }
-    
+//    Funzione che controlla che la funzione non sia presente nel mio elenco
     func ControlloAggiuntaChat(chat : Chat){
 //        Devo controllare che quella chat non sia presente nel mio elenco
         var trovato = false
@@ -121,11 +123,12 @@ class Gestione: ObservableObject{
         }
         if(trovato == false){
 //            Implementare l'aggiunta chat
-//            elencoChat.append(chat)
+            evitaControlloIniziale = true
+            elencoChat.append(chat)
             self.AddChat(chat: chat)
         }
     }
-    
+//    Funzione che data una stringa ricerca elementi
     func RicercaElementi(cerca : String) -> [Chat] {
 //        1. trovare tutte le chat che contengono il proprietario.
 //        2. Applicare i filtri
@@ -157,10 +160,12 @@ class Gestione: ObservableObject{
     
 //    Funzione che trova gli utenti per gestire i messaggi
     func trovaUtenti(telefono : String) -> Utente {
+//        controllo che il telefono sia ugguale al proprietario
         if(telefono == Prorpietario.numeroTelefono){
             print(Prorpietario.image)
             return Prorpietario
         }else{
+//            se non è il prorprietario, controllo gli altri utenti
             for utente in utenti{
                 if(utente.numeroTelefono == telefono){
                     return utente
@@ -171,7 +176,6 @@ class Gestione: ObservableObject{
     }
     
 //    Funzione che controlla carattere per carattere
-    
     func ControllaCaratteri(stringaDacontrollare : String, cerca: String) -> Bool {
         let controllare  = Array(stringaDacontrollare)
         let cercaChar = Array(cerca)
@@ -227,7 +231,7 @@ class Gestione: ObservableObject{
     func LeggiChat(){
         let db = Firestore.firestore()
 //        Lettura Messaggi
-        db.collection("Chat").addSnapshotListener({ [self] (QuerySnapshot, Error) in
+        db.collection("Chat").getDocuments(completion: { [self] (QuerySnapshot, Error) in
             if Error != nil{
                 print(Error!.localizedDescription)
                 return
@@ -343,7 +347,7 @@ class Gestione: ObservableObject{
                     self.valoreAggiunto = 1
                     self.numeroTelefonoPermanente = numerout
                     self.Prorpietario = Utente(nome: nome, cognome: cognome, idf: idf, nickname: nickname, numeroTelefono: numerout, percorsoimage: image)
-                    self.isLoading.toggle()
+//                    self.isLoading.toggle()
                     self.Autenticazione()
                 }
             }
@@ -410,6 +414,10 @@ class Gestione: ObservableObject{
 //    Funzione che controlla se le immagini sono state caricate
     func Caricamento() -> Bool {
     //        Devo controllare che tutti gli utenti hanno un immagine
+        if(evitaControlloIniziale == false){
+            if(utenti.count == 0){
+                return false
+            }
         var presenzaInUtenti : Int = 0
         var presenzaInChat : Int = 0
         for ut in utenti {
@@ -423,14 +431,16 @@ class Gestione: ObservableObject{
             }
         }
         if((presenzaInUtenti == utenti.count) && (presenzaInChat == elencoChat.count)){
+            print("is loading \(isLoading)")
             return true
         }
         else{
             return false
         }
+        }else{
+            return true
+        }
     }
-    
-    
     
     func CaricaImmagine(){
 //        acquisizioneImage
@@ -460,18 +470,21 @@ class Gestione: ObservableObject{
     
 //    Funzione che aggiunge un utente
     func AddImage(){
-            self.isLoading.toggle()
+//        Se utente
         if((utenti.count>0)&&(Prorpietario.percorsoimage != "")){
             dowloadimage(utente: Prorpietario)
             for ut  in utenti {
                 dowloadimage(utente: ut)
             }
         }
-        self.letturaUtenti = true
+        self.isLoading.toggle()
+//        self.letturaUtenti = true
     }
     
     func dowloadimage( utente : Utente){
-//        Scarichiamo le immagini con il loro riferimento. che è img\data
+//Scarichiamo le immagini con il loro riferimento. che è img\data
+//  Inizia
+        self.isLoading.toggle()
         let storage = Storage.storage().reference(forURL: utente.percorsoimage)
         storage.getData(maxSize: (2 * 1024 * 1024)) { (data, err) in
             if err != nil{
@@ -480,20 +493,24 @@ class Gestione: ObservableObject{
             }
             let myimage = UIImage(data: data!)
             utente.image = myimage
+//            si chiude
             self.isLoading.toggle()
         }
     }
 //    Funzioni che leggono le immagini per le chat.
     
     func addImageInChat(){
-            self.isLoading.toggle()
-            print("☠️ elenco chat\(self.elencoChat)")
+
+        print("☠️ elenco chat\(self.elencoChat)")
             for chatii in elencoChat {
                 self.dowloadimageChat(chat: chatii)
             }
-            self.isLoading.toggle()
+                self.isLoading.toggle()
     }
+//    Funzione che scarica le immagini dalle chat 
     func dowloadimageChat(chat: Chat){
+//        si apre
+        self.isLoading.toggle()
         let storage = Storage.storage().reference(forURL: chat.percorsoimage)
         storage.getData(maxSize: (2*1024*1024)) { (data, err) in
             if err != nil{
@@ -502,7 +519,6 @@ class Gestione: ObservableObject{
             }
             chat.image = UIImage(data: data!)!
             self.isLoading.toggle()
-            
             
         }
     }
@@ -544,7 +560,7 @@ class Chat:Identifiable{
     }
     
 }
-//conitne testo,data,telefono -> sono i veri e prori messaggi
+//contiene testo,data,telefono -> sono i veri e prori messaggi
 //il messaggio deve avere un destinatario e un mittente, cosi da port filtrare il messaggio con la chat
 class Messaggi: Identifiable,Equatable {
     static func == (lhs: Messaggi, rhs: Messaggi) -> Bool {

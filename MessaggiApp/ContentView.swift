@@ -14,7 +14,7 @@ struct ContentView: View {
     @AppStorage("StatoAccesso") var valoreAggiunto:Int = 0
     var body: some View {
         ZStack {
-            if((gestionedati.Caricamento() == true) || (gestionedati.registrazione == true)){
+            if(gestionedati.Caricamento() == true){ //|| (gestionedati.registrazione == true)){
             ZStack{
                 if(valoreAggiunto == 2){
                         NavigationView{
@@ -22,6 +22,9 @@ struct ContentView: View {
                         .navigationTitle("")
                         .navigationBarTitleDisplayMode(.inline)
                         .navigationBarHidden(true)
+                            .onAppear{
+                                gestionedati.isLoading = false
+                            }
                     }
     //                    Prednere spunto per tabbar
     //                    if trovato != true{ SceltaMultipla()}
@@ -58,9 +61,8 @@ struct ContentView: View {
             .alert(isPresented: $gestionedati.numeroNonValido, content: {
                 Alert(title: Text("Attenzione!!⚠️"), message: Text("Valore non valido"), dismissButton: .default(Text("OK")))
             })
-                
             }else{
-                Text("Caricamento")
+                LoadingView()
             }
         }
     }
