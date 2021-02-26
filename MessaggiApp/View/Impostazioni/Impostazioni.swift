@@ -14,6 +14,10 @@ struct Impostazioni: View {
         VStack {
                     Button(action: {
                         valoreAggiunto = 0
+//                        Svuotare gli array
+                        gestione.messaggi = []
+                        gestione.elencoChat = []
+                        gestione.utenti = []
                     }, label: {
                         Text("LogOut")
                             .padding()
@@ -22,6 +26,7 @@ struct Impostazioni: View {
                     Text("\(gestione.Prorpietario.cognome)")
                     Text("\(gestione.Prorpietario.nickname)")
                     Text("\(gestione.Prorpietario.numeroTelefono)")
+            
                     Button(action: {
                         gestione.selezionaAcquisizioneImge.toggle()
                     }, label: {

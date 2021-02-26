@@ -51,6 +51,10 @@ Implemntare il Login e la registrazione, quindi:
 ✅ problemi con la chat, non si aggiunge una nuova, non carica l'imagine.
 ✅ capire come far aprire il tipo di dati che viene salvato nel server.
 ✅ ridisengare le texfield di inserimento dei numeri, disegnare cosa devono contenre le impostazioni.
+✅ creare delle alert prsonalizzate.
+❌ implementare COREDATA per il salvataggio in locale dell'immagine profilo.
+❌ LATENZA DOWLAOD IMAGE -> Trovare il modo di contare gli elementi dentro firebae, poi dowloadare le immagini delle chat e sarvale in CoreData. insime hai messaggi.
+-> controllare solo con l'update 
 ❌ trovare modo per riaggiornare i valori ->
     :impostare un azione che quando si fa uno scorrimento verso il basso vengono riaggiornati i valori,
 - controllare errori con inserimento numeri sbagliati

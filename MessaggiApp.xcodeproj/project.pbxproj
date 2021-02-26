@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4862A4225E8F0A7004A7824 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4862A4125E8F0A7004A7824 /* AlertView.swift */; };
 		D1033F8A25A0C65300701100 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1033F8925A0C65300701100 /* ChatView.swift */; };
 		D1033F8D25A0E0D000701100 /* SceltaMultipla.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1033F8C25A0E0D000701100 /* SceltaMultipla.swift */; };
 		D1033F9325A0EF5C00701100 /* Impostazioni.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1033F9225A0EF5C00701100 /* Impostazioni.swift */; };
@@ -36,6 +37,7 @@
 		1DE3E2D8A66A99058AEABA49 /* Pods-MessaggiApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessaggiApp.debug.xcconfig"; path = "Target Support Files/Pods-MessaggiApp/Pods-MessaggiApp.debug.xcconfig"; sourceTree = "<group>"; };
 		53A931054D059681BAE54BF0 /* Pods_MessaggiApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessaggiApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BE879FC5C4D7F4ED58FD8C /* Pods-MessaggiApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessaggiApp.release.xcconfig"; path = "Target Support Files/Pods-MessaggiApp/Pods-MessaggiApp.release.xcconfig"; sourceTree = "<group>"; };
+		C4862A4125E8F0A7004A7824 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		D1033F8925A0C65300701100 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		D1033F8C25A0E0D000701100 /* SceltaMultipla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceltaMultipla.swift; sourceTree = "<group>"; };
 		D1033F9225A0EF5C00701100 /* Impostazioni.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Impostazioni.swift; sourceTree = "<group>"; };
@@ -74,6 +76,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4862A4025E8F09B004A7824 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				C4862A4125E8F0A7004A7824 /* AlertView.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		D174CD3225A75DEA0071E659 /* Loading */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +198,7 @@
 		D1E957D925A0761500367411 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C4862A4025E8F09B004A7824 /* Alert */,
 				D174CD3225A75DEA0071E659 /* Loading */,
 				D1DAB46425A12E2000690E69 /* Utenti */,
 				D1DAB46325A12E1300690E69 /* Impostazioni */,
@@ -358,6 +369,7 @@
 				D18E74D125A125D50001457B /* CampiDiTesto.swift in Sources */,
 				D1033F8D25A0E0D000701100 /* SceltaMultipla.swift in Sources */,
 				D1033F9325A0EF5C00701100 /* Impostazioni.swift in Sources */,
+				C4862A4225E8F0A7004A7824 /* AlertView.swift in Sources */,
 				D1033F8A25A0C65300701100 /* ChatView.swift in Sources */,
 				D18E74CD25A120270001457B /* RegistrazioneView.swift in Sources */,
 				D1E957ED25A097F800367411 /* MessageView.swift in Sources */,

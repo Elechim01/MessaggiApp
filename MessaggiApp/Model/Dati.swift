@@ -32,6 +32,7 @@ class Gestione: ObservableObject{
 //Valori di ritorno di firebase
 //    Valore che controlla il login, la registazione, e l'accesso
 //    inizlamente settato a 0
+//    Solo per autorizazione
     @AppStorage("StatoAccesso") var valoreAggiunto:Int = 0
     @AppStorage("NumeroTelefono") var numeroTelefonoPermanente: String = "+393381356237"
     //"40" //"+393381356237"
@@ -60,12 +61,14 @@ class Gestione: ObservableObject{
     @Published var evitaControlloIniziale : Bool = false
     
     init() {
-    LeggiChat()
-    Lettura()
-    LeggiMessaggio()
+        print("val agg 🤖\(valoreAggiunto)")
+//        if valoreAggiunto != 0 {
+//            LeggiChat()
+//            Lettura()
+//            LeggiMessaggio()
+//        }
 //    AddImage()
 //    addImageInChat()
-    valoreAggiunto = 2
    }
     
     func FiltroMessaggi(altroUtente: Utente) -> [Messaggi] {
@@ -195,7 +198,7 @@ class Gestione: ObservableObject{
     
     func Lettura(){
 //        Setto il valore per  non fare comparire la view
-        valoreAggiunto = 4
+//        valoreAggiunto = 4
         let db = Firestore.firestore()
         db.collection("Utente").addSnapshotListener({ [self](snap,err) in
             if err != nil{
@@ -223,7 +226,7 @@ class Gestione: ObservableObject{
 //                        }
                     }
                 }
-                AddImage()
+//                AddImage() funzioni che leggono le immagini
             }
         })
     }
@@ -249,7 +252,7 @@ class Gestione: ObservableObject{
                     print("☠️ chat \(Chat(percorsoimage: image, messaggi: [], ut: utente,ut1: utente1, idf: id))")
                         self.elencoChat.append(Chat(percorsoimage: image, messaggi: [], ut: utente,ut1: utente1, idf: id))
 //                        self.dowloadimageChat.toggle()
-                        addImageInChat()
+//                        addImageInChat() // funzioni che leggono le immagini degli utenti
 //                    }
                 }
             }
@@ -276,13 +279,13 @@ class Gestione: ObservableObject{
                     print("☠️ dati del messaggio testo: \(testo), telefono \(telefono),data\(data)")
 //                    DispatchQueue.main.async {
                     self.messaggi.append(Messaggi(testo: testo, idf: idf, data: data, mittente: mittente, destinatario: destinatario))
-                    valoreAggiunto = 2
+//                    valoreAggiunto = 2
                     self.letturaMessaggio = true
 //                    }
 
                 }
             }
-            valoreAggiunto = 2
+//            valoreAggiunto = 2
             self.letturaMessaggio = true
         })
     }
@@ -325,6 +328,7 @@ class Gestione: ObservableObject{
     
 //    Controlla che l'utente sia nel databse, se è presente aggunte il numero nel propeitario e trona true, altrimenti torna false
     func controlloUtente() {
+        var numtrov : Bool = false
 //        devo accedere e controllare che il numero sia presente, se c'è aggiugo il proprietario, e ritorno se è stato aggiunto o mento
         let db = Firestore.firestore()
         db.collection("Utente").getDocuments { (quary, err) in
@@ -337,6 +341,7 @@ class Gestione: ObservableObject{
 //                Leggo il numero
                 let numerout = data["numeroTelefono"] as? String ?? ""
                 print("+39"+self.numeroTelefono)
+//                Controllo se c'è il numero ma lui li confronta
                 if(numerout == ("+39"+self.numeroTelefono)){
 //                    creazione utente
                     let idf = document.documentID
@@ -344,57 +349,80 @@ class Gestione: ObservableObject{
                     let cognome = data["cognome"] as? String ?? ""
                     let nickname = data["nickname"] as? String ?? ""
                     let image = data["image"] as? String ?? ""
-                    self.valoreAggiunto = 1
+//                    self.valoreAggiunto = 1
                     self.numeroTelefonoPermanente = numerout
                     self.Prorpietario = Utente(nome: nome, cognome: cognome, idf: idf, nickname: nickname, numeroTelefono: numerout, percorsoimage: image)
+                    numtrov = false
 //                    self.isLoading.toggle()
                     self.Autenticazione()
                 }
+                else{
+                   numtrov = true
+                }
+            }
+            if numtrov == true{
+                self.numeroNonValido = true
             }
             
         }
     }
     
     func Autenticazione(){
-        Auth.auth().settings?.isAppVerificationDisabledForTesting = false
-        Auth.auth().languageCode = "it"
+//        var _ : Bool = false
+        Auth.auth().settings?.isAppVerificationDisabledForTesting = true
+//        Auth.auth().languageCode = "it"
         self.isLoading.toggle()
-        print(self.numeroTelefono)
+        print("prima dell aggiunta",self.numeroTelefono)
         PhoneAuthProvider.provider().verifyPhoneNumber("+39"+self.numeroTelefono, uiDelegate: nil) { (CODE, err) in
             self.isLoading.toggle()
              if err != nil{
+                self.isLoading.toggle()
 //                Implemntare alert
                 self.alertMessage = err!.localizedDescription
                 self.alert.toggle()
+                print("🤖alert",self.alert.description)
                 return
             }
             self.CODE = CODE!
+            print(CODE!)
 //            Creazione alert
             let alertView = UIAlertController(title: "Verifica", message: "Inserisci il codice", preferredStyle: .alert)
             let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-            let conferma = UIAlertAction(title: "OK", style: .default) { [self] (_) in
+            let conferma = UIAlertAction(title: "OK", style: .default) { (_) in
                 if let otp = alertView.textFields![0].text{
                     let credential = PhoneAuthProvider.provider().credential(withVerificationID: self.CODE, verificationCode: otp)
                     self.isLoading.toggle()
                     Auth.auth().signIn(with: credential) { (red, err) in
                         self.isLoading.toggle()
                         if err != nil{
+//                            Tolgo il loading
+                            self.isLoading.toggle()
                             self.alertMessage = err!.localizedDescription
                             self.alert.toggle()
+                            print("🤖alert",self.alert.description)
                             return
                         }
+                        self.Prorpietario = self.trovaUtenti(telefono: "+39"+self.numeroTelefono)
+                        self.valoreAggiunto = 2
+                        self.isLoading = false
+                        return
                     }
 //                    Spostarsi nella content view
-                    self.Prorpietario = self.trovaUtenti(telefono: "+39"+self.numeroTelefono)
-                    self.valoreAggiunto = 2
+                    
                 }
             }
+//            if self.numeroTelefono == "3381356237" {
+//                alertView.addTextField { (txt) in
+//                    txt.placeholder = "123456"
+//                }
+//            }
             alertView.addTextField(configurationHandler: nil)
             alertView.addAction(cancel)
             alertView.addAction(conferma)
 //            Uscita
             UIApplication.shared.windows.first?.rootViewController?.present(alertView, animated: true, completion: nil)
         }
+        self.isLoading.toggle()
     }
 // aggiunta chat
     func AddChat(chat : Chat){
@@ -414,32 +442,34 @@ class Gestione: ObservableObject{
 //    Funzione che controlla se le immagini sono state caricate
     func Caricamento() -> Bool {
     //        Devo controllare che tutti gli utenti hanno un immagine
-        if(evitaControlloIniziale == false){
-            if(utenti.count == 0){
-                return false
-            }
-        var presenzaInUtenti : Int = 0
-        var presenzaInChat : Int = 0
-        for ut in utenti {
-            if(ut.image != nil){
-                presenzaInUtenti += 1
-            }
-        }
-        for cha in  elencoChat {
-            if(cha.image != nil){
-                presenzaInChat += 1
-            }
-        }
-        if((presenzaInUtenti == utenti.count) && (presenzaInChat == elencoChat.count)){
-            print("is loading \(isLoading)")
-            return true
-        }
-        else{
-            return false
-        }
-        }else{
-            return true
-        }
+//        if(evitaControlloIniziale == false){
+//            if(utenti.count == 0){
+//                return false
+//            }
+//        var presenzaInUtenti : Int = 0
+//        var presenzaInChat : Int = 0
+//        for ut in utenti {
+//            if(ut.image != nil){
+//                presenzaInUtenti += 1
+//            }
+//        }
+//        for cha in  elencoChat {
+//            if(cha.image != nil){
+//                presenzaInChat += 1
+//            }
+//        }
+//            if((presenzaInUtenti == utenti.count) && (presenzaInChat == elencoChat.count)){
+//            print("is loading \(isLoading)")
+//            return true
+//        }
+//            else{
+//                return false
+//            }
+//        }else{
+//            return true
+//        }
+        return true
+    
     }
     
     func CaricaImmagine(){
@@ -522,6 +552,7 @@ class Gestione: ObservableObject{
             
         }
     }
+    
 }
 //Utente ha nome,cognome,nickname,numeroTelefono,image -> raccoglie tutti gli utenti
 class Utente: Identifiable {
