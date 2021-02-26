@@ -60,6 +60,11 @@ class Gestione: ObservableObject{
 //    Controllo cariamento iniziale
     @Published var evitaControlloIniziale : Bool = false
     
+//    Valori elimininazione Chat
+    @Published var eliminazioneChatToggle : Bool = false
+    @Published var chatDaEiminare : Chat = Chat(percorsoimage: "", messaggi: [], ut: "", ut1: "", idf: "")
+    
+    
     init() {
         print("val agg 🤖\(valoreAggiunto)")
 //        if valoreAggiunto != 0 {
@@ -138,15 +143,23 @@ class Gestione: ObservableObject{
         var chattrovate :[Chat] = []
         if cerca == "" {
 //            Controllare
-            return elencoChat
+            for chati in self.elencoChat {
+//                devo trovare le chat che hanno il mio numero come utente
+                if(chati.ut == Prorpietario.numeroTelefono) || (chati.ut1 == Prorpietario.numeroTelefono){
+                    chattrovate.append(chati)
+                }
+            }
+            return chattrovate
         }else{
 //            trovare gli utenti e confrontare il nome
             for chat in elencoChat {
                 if ControllaCaratteri(stringaDacontrollare: trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.nickname,cerca:cerca) == true{
+                    print("🤖chat aggiunta \(chat.ut) \(chat.ut1)")
                     chattrovate.append(chat)
                 }
             }
         }
+
         return chattrovate
     }
     
@@ -221,17 +234,18 @@ class Gestione: ObservableObject{
                                 self.Prorpietario = Utente(nome: nome, cognome: cognome, idf: idf, nickname: nickname, numeroTelefono: numerotelfono, percorsoimage: urlimage)
                             }
                             self.utenti.append(Utente(nome: nome, cognome: cognome, idf: idf, nickname: nickname, numeroTelefono: numerotelfono, percorsoimage: urlimage))
-//                            self.dowloadImageUtenti.toggle()
-//                            AddImage()
+                            self.dowloadImageUtenti.toggle()
+                            AddImage()
 //                        }
                     }
                 }
-//                AddImage() funzioni che leggono le immagini
+//                AddImage()// funzioni che leggono le immagini
             }
         })
     }
     
     func LeggiChat(){
+        var chat : Chat = Chat(percorsoimage: "", messaggi: [], ut: "", ut1: "", idf: "")
         let db = Firestore.firestore()
 //        Lettura Messaggi
         db.collection("Chat").getDocuments(completion: { [self] (QuerySnapshot, Error) in
@@ -250,9 +264,12 @@ class Gestione: ObservableObject{
                     let utente1 = msg["utente1"] as? String ?? ""
 //                    DispatchQueue.main.async {
                     print("☠️ chat \(Chat(percorsoimage: image, messaggi: [], ut: utente,ut1: utente1, idf: id))")
-                        self.elencoChat.append(Chat(percorsoimage: image, messaggi: [], ut: utente,ut1: utente1, idf: id))
-//                        self.dowloadimageChat.toggle()
-//                        addImageInChat() // funzioni che leggono le immagini degli utenti
+                    chat = Chat(percorsoimage: image, messaggi: [], ut: utente,ut1: utente1, idf: id)
+                        if(chat.ut == Prorpietario.numeroTelefono) || (chat.ut1 == Prorpietario.numeroTelefono){
+                            self.elencoChat.append(chat)
+    //                        self.dowloadimageChat.toggle()
+                            addImageInChat() // funzioni che leggono le immagini degli utenti
+                        }
 //                    }
                 }
             }
@@ -352,9 +369,10 @@ class Gestione: ObservableObject{
 //                    self.valoreAggiunto = 1
                     self.numeroTelefonoPermanente = numerout
                     self.Prorpietario = Utente(nome: nome, cognome: cognome, idf: idf, nickname: nickname, numeroTelefono: numerout, percorsoimage: image)
-                    numtrov = false
 //                    self.isLoading.toggle()
                     self.Autenticazione()
+                    numtrov = false
+                    return
                 }
                 else{
                    numtrov = true
@@ -369,7 +387,7 @@ class Gestione: ObservableObject{
     
     func Autenticazione(){
 //        var _ : Bool = false
-        Auth.auth().settings?.isAppVerificationDisabledForTesting = true
+        Auth.auth().settings?.isAppVerificationDisabledForTesting = false
 //        Auth.auth().languageCode = "it"
         self.isLoading.toggle()
         print("prima dell aggiunta",self.numeroTelefono)
@@ -408,7 +426,6 @@ class Gestione: ObservableObject{
                         return
                     }
 //                    Spostarsi nella content view
-                    
                 }
             }
 //            if self.numeroTelefono == "3381356237" {
@@ -441,35 +458,43 @@ class Gestione: ObservableObject{
     
 //    Funzione che controlla se le immagini sono state caricate
     func Caricamento() -> Bool {
-    //        Devo controllare che tutti gli utenti hanno un immagine
+//            Devo controllare che tutti gli utenti hanno un immagine
 //        if(evitaControlloIniziale == false){
 //            if(utenti.count == 0){
 //                return false
 //            }
-//        var presenzaInUtenti : Int = 0
-//        var presenzaInChat : Int = 0
-//        for ut in utenti {
-//            if(ut.image != nil){
-//                presenzaInUtenti += 1
-//            }
-//        }
-//        for cha in  elencoChat {
-//            if(cha.image != nil){
-//                presenzaInChat += 1
-//            }
-//        }
-//            if((presenzaInUtenti == utenti.count) && (presenzaInChat == elencoChat.count)){
-//            print("is loading \(isLoading)")
-//            return true
-//        }
-//            else{
-//                return false
-//            }
+        var presenzaInUtenti : Int = 0
+        var presenzaInChat : Int = 0
+        for ut in utenti {
+            print("utente \(ut)")
+            if(ut.image != nil){
+                presenzaInUtenti += 1
+            }
+        }
+        for cha in  elencoChat {
+            print("chat \(cha)")
+            if(cha.image != nil){
+                presenzaInChat += 1
+            }
+        }
+        print("🤖 presenza utenti \(presenzaInUtenti), utenti \(utenti.count)")
+        print("🤖 presenza chat \(presenzaInChat), chat \(elencoChat.count)")
+//        Controllo che non sia vuoto
+        if(utenti.count == 0 && elencoChat.count == 0){
+            return false
+        }
+            if((presenzaInUtenti == utenti.count) && (presenzaInChat == elencoChat.count)){
+            print("is loading \(isLoading)")
+                presenzaInUtenti = 0
+                presenzaInChat = 0
+            return true
+        }
+            else{
+                return false
+            }
 //        }else{
 //            return true
 //        }
-        return true
-    
     }
     
     func CaricaImmagine(){
@@ -498,7 +523,7 @@ class Gestione: ObservableObject{
         }
     }
     
-//    Funzione che aggiunge un utente
+//    Funzione  Immagine all'utente che aggiunge un utente
     func AddImage(){
 //        Se utente
         if((utenti.count>0)&&(Prorpietario.percorsoimage != "")){
@@ -508,7 +533,7 @@ class Gestione: ObservableObject{
             }
         }
         self.isLoading.toggle()
-//        self.letturaUtenti = true
+        self.letturaUtenti = true
     }
     
     func dowloadimage( utente : Utente){
@@ -532,10 +557,12 @@ class Gestione: ObservableObject{
     func addImageInChat(){
 
         print("☠️ elenco chat\(self.elencoChat)")
+        if elencoChat.count > 0{
             for chatii in elencoChat {
                 self.dowloadimageChat(chat: chatii)
             }
-                self.isLoading.toggle()
+            self.isLoading.toggle()
+        }
     }
 //    Funzione che scarica le immagini dalle chat 
     func dowloadimageChat(chat: Chat){
@@ -551,6 +578,33 @@ class Gestione: ObservableObject{
             self.isLoading.toggle()
             
         }
+    }
+//    Funzione che si occupa di rimovere la chat
+    func EliminaChat(){
+        let db = Firestore.firestore()
+        db.collection("Chat").document("\(chatDaEiminare.idf)").delete(){ err in
+            if let err = err {
+//                uso alert
+                self.alert = true
+                self.alertMessage = err.localizedDescription
+            }else{
+                print("Sucesso")
+            }
+        }
+        self.elencoChat.remove(at: TrovaChadDaEliminare(chat: chatDaEiminare))
+    }
+//    Supporto  all' elimina chat per trovare la chat giusta.
+    func TrovaChadDaEliminare(chat : Chat) -> Int {
+        var posizione : Int = 0
+        var indice : Int = 0
+        for c in elencoChat {
+            if(c.idf == chat.idf){
+               posizione = indice
+                break
+            }
+            indice += 1
+        }
+        return posizione
     }
     
 }

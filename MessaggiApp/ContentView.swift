@@ -15,14 +15,17 @@ struct ContentView: View {
     var body: some View {
         VStack {
             ZStack {
-                if(gestionedati.Caricamento() == true){ //|| (gestionedati.registrazione == true)){
                 ZStack{
                     if(valoreAggiunto == 2){
-                            NavigationView{
-                            SceltaMultipla().environmentObject(gestionedati)
-                            .navigationTitle("")
-                            .navigationBarTitleDisplayMode(.inline)
-                            .navigationBarHidden(true)
+                        if(gestionedati.Caricamento() == true){
+                                NavigationView{
+                                SceltaMultipla().environmentObject(gestionedati)
+                                .navigationTitle("")
+                                .navigationBarTitleDisplayMode(.inline)
+                                .navigationBarHidden(true)
+                            }
+                        }else{
+                            Text("Caricamento chat")
                                 .onAppear{
                                     gestionedati.isLoading = false
                                     print("🤖",valoreAggiunto)
@@ -34,6 +37,7 @@ struct ContentView: View {
         //                    Prednere spunto per tabbar
         //                    if trovato != true{ SceltaMultipla()}
                     }
+                    
                     if(valoreAggiunto == 0){
                         LoginView().environmentObject(gestionedati)
                     }
@@ -50,6 +54,9 @@ struct ContentView: View {
                     if(gestionedati.numeroNonValido == true){
                         AlertView(testo: "Attenzione!!⚠️", messaggio: "Valore non valido", risposta: $gestionedati.numeroNonValido)
                     }
+                    if(gestionedati.eliminazioneChatToggle == true){
+                        EliminaChatView().environmentObject(gestionedati)
+                    }
 //                    if(gestionedati.isLoading){
 //                        LoadingView()
 //                    }
@@ -65,10 +72,6 @@ struct ContentView: View {
                     if(valoreAggiunto != 2 && valoreAggiunto != 3 && valoreAggiunto != 0 && valoreAggiunto != 1){
                         Text("Errore")
                     }
-                }
-               
-                }else{
-                    LoadingView()
                 }
             }
         }

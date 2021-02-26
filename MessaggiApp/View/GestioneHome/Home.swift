@@ -57,7 +57,17 @@ struct Home: View {
                                                 .onAppear{
                                                     
                                                 }
+                                                .onLongPressGesture {
+                                                    gestioneDati.chatDaEiminare = ele
+                                                    gestioneDati.eliminazioneChatToggle.toggle()
+                                                    
+//                                                    Implementare l'elimina della chat.
+                                                    print("🤖Idf \(ele.idf)")
+//                                                    gestioneDati.EliminaChat(chat: ele)
+                                                    print("ho premuto a lungo")
+                                                }
                                         })
+                                        
                                 }
                                 
     //                        .padding(.bottom,edge!.bottom - 70)
