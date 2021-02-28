@@ -43,31 +43,28 @@ struct Home: View {
                             
     //
                                 ForEach(gestioneDati.RicercaElementi(cerca: cerca)){ ele in
-                                    NavigationLink(
-                                        destination: ChatView(chat: ele)
-                                            .environmentObject(gestioneDati)
-                                        ,label: {
-                                            contatti(utente: gestioneDati.trovaDestinatario(ut: ele.ut, ut1: ele.ut1)!)
-                                                .frame(height:50)
-                                                .background(Color.white)
-                                                .cornerRadius(50)
-                                                .padding(.top,10)
-                                                .padding(.leading,10)
-                                                .padding(.trailing,10)
-                                                .onAppear{
-                                                    
-                                                }
-                                                .onLongPressGesture {
-                                                    gestioneDati.chatDaEiminare = ele
-                                                    gestioneDati.eliminazioneChatToggle.toggle()
-                                                    
+                                        NavigationLink(
+                                            destination: ChatView(chat: ele, utenteNuovo: false)
+                                                .environmentObject(gestioneDati)
+                                            ,label: {
+                                                contatti(utente: gestioneDati.trovaDestinatario(ut: ele.ut, ut1: ele.ut1)!)
+                                                    .frame(height:50)
+                                                    .background(Color.white)
+                                                    .cornerRadius(50)
+                                                    .padding(.top,10)
+                                                    .padding(.leading,10)
+                                                    .padding(.trailing,10)
+                                                  
+                                            })
+                                            .onTapGesture(count :2) {
+                                            gestioneDati.chatDaEiminare = ele
+                                            gestioneDati.eliminazioneChatToggle.toggle()
+                                            
 //                                                    Implementare l'elimina della chat.
-                                                    print("🤖Idf \(ele.idf)")
+                                            print("🤖Idf \(ele.idf)")
 //                                                    gestioneDati.EliminaChat(chat: ele)
-                                                    print("ho premuto a lungo")
-                                                }
-                                        })
-                                        
+                                            print("ho premuto a lungo")
+                                    }
                                 }
                                 
     //                        .padding(.bottom,edge!.bottom - 70)

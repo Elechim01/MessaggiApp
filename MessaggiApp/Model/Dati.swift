@@ -64,6 +64,11 @@ class Gestione: ObservableObject{
     @Published var eliminazioneChatToggle : Bool = false
     @Published var chatDaEiminare : Chat = Chat(percorsoimage: "", messaggi: [], ut: "", ut1: "", idf: "")
     
+//    Barra
+    @Published var progressValue : Float = 0.0
+    @Published var presenzaInUtentiProgress : Int = 0
+    @Published var presenzaInChatProgress : Int = 0
+    
     
     init() {
         print("val agg 🤖\(valoreAggiunto)")
@@ -142,6 +147,8 @@ class Gestione: ObservableObject{
 //        2. Applicare i filtri
         var chattrovate :[Chat] = []
         if cerca == "" {
+            print("🤖chat trovate inizio :\(chattrovate.count)")
+            print("🤖 elenco chat\(elencoChat.count)")
 //            Controllare
             for chati in self.elencoChat {
 //                devo trovare le chat che hanno il mio numero come utente
@@ -149,6 +156,7 @@ class Gestione: ObservableObject{
                     chattrovate.append(chati)
                 }
             }
+            print("🤖chat trovate fine :\(chattrovate.count)")
             return chattrovate
         }else{
 //            trovare gli utenti e confrontare il nome
@@ -235,6 +243,7 @@ class Gestione: ObservableObject{
                             }
                             self.utenti.append(Utente(nome: nome, cognome: cognome, idf: idf, nickname: nickname, numeroTelefono: numerotelfono, percorsoimage: urlimage))
                             self.dowloadImageUtenti.toggle()
+//                        Disabilitata per test
                             AddImage()
 //                        }
                     }
@@ -267,8 +276,8 @@ class Gestione: ObservableObject{
                     chat = Chat(percorsoimage: image, messaggi: [], ut: utente,ut1: utente1, idf: id)
                         if(chat.ut == Prorpietario.numeroTelefono) || (chat.ut1 == Prorpietario.numeroTelefono){
                             self.elencoChat.append(chat)
-    //                        self.dowloadimageChat.toggle()
-                            addImageInChat() // funzioni che leggono le immagini degli utenti
+                            // funzioni che leggono le immagini degli utenti
+                            addImageInChat()
                         }
 //                    }
                 }
@@ -381,7 +390,6 @@ class Gestione: ObservableObject{
             if numtrov == true{
                 self.numeroNonValido = true
             }
-            
         }
     }
     
@@ -469,20 +477,26 @@ class Gestione: ObservableObject{
             print("utente \(ut)")
             if(ut.image != nil){
                 presenzaInUtenti += 1
+//                per barra
+//                self.presenzaInUtentiProgress += 1
             }
         }
         for cha in  elencoChat {
             print("chat \(cha)")
             if(cha.image != nil){
                 presenzaInChat += 1
+                //                per barra
+                
             }
         }
         print("🤖 presenza utenti \(presenzaInUtenti), utenti \(utenti.count)")
         print("🤖 presenza chat \(presenzaInChat), chat \(elencoChat.count)")
-//        Controllo che non sia vuoto
+        
+////        Controllo che non sia vuoto
         if(utenti.count == 0 && elencoChat.count == 0){
             return false
         }
+//        CalcoloPercentuale()
             if((presenzaInUtenti == utenti.count) && (presenzaInChat == elencoChat.count)){
             print("is loading \(isLoading)")
                 presenzaInUtenti = 0
@@ -490,12 +504,33 @@ class Gestione: ObservableObject{
             return true
         }
             else{
+//                CalcoloPercentuale(utenti: presenzaInUtenti, chat: presenzaInChat)
                 return false
-            }
+        }
+//        no
 //        }else{
 //            return true
 //        }
+    
+//        Disabilito per test :
+//        if(utenti.count == 0 && elencoChat.count == 0){
+//                    return false
+//        }
+//        return true
+        
     }
+//    func CalcoloPercentuale(){//utenti : Int, chat: Int){
+////        devo calcolare la percentuale di avanzamento...
+////        pieno = 1 vuoto = 0
+////        devo calcolare il totate
+////        for _ in 0...1 {
+////            self.progressValue += 0.15
+////        }
+////        let tot = self.utenti.count + self.elencoChat.count
+////        print("😀ut\(utenti) chat \(chat)")
+////        let ric = utenti + chat
+////        self.progressValue = Float(ric / tot)
+//    }
     
     func CaricaImmagine(){
 //        acquisizioneImage
@@ -548,6 +583,7 @@ class Gestione: ObservableObject{
             }
             let myimage = UIImage(data: data!)
             utente.image = myimage
+            self.presenzaInUtentiProgress += 1
 //            si chiude
             self.isLoading.toggle()
         }
@@ -575,6 +611,7 @@ class Gestione: ObservableObject{
                 return
             }
             chat.image = UIImage(data: data!)!
+            self.presenzaInChatProgress += 1
             self.isLoading.toggle()
             
         }
@@ -606,8 +643,8 @@ class Gestione: ObservableObject{
         }
         return posizione
     }
-    
 }
+
 //Utente ha nome,cognome,nickname,numeroTelefono,image -> raccoglie tutti gli utenti
 class Utente: Identifiable {
     var id = UUID().uuidString

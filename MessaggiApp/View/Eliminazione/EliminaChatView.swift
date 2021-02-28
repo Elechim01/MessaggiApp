@@ -19,7 +19,7 @@ struct EliminaChatView: View {
                     .frame(width: 30, height: 30)
                     .foregroundColor(.red)
                     .padding(.leading,5)
-                Text("Elimina riga")
+                Text("Elimina chat")
                     .foregroundColor(.white)
                     .font(.title2)
             }

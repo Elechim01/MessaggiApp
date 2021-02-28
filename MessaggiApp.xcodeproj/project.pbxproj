@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C4862A4225E8F0A7004A7824 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4862A4125E8F0A7004A7824 /* AlertView.swift */; };
 		C4862ABA25E998B8004A7824 /* EliminaChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4862AB925E998B8004A7824 /* EliminaChatView.swift */; };
+		C4862B1625EAB220004A7824 /* ProgressiveBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4862B1525EAB220004A7824 /* ProgressiveBarView.swift */; };
+		C4862B1A25EAB275004A7824 /* GestioneProgressiveBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4862B1925EAB275004A7824 /* GestioneProgressiveBar.swift */; };
 		D1033F8A25A0C65300701100 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1033F8925A0C65300701100 /* ChatView.swift */; };
 		D1033F8D25A0E0D000701100 /* SceltaMultipla.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1033F8C25A0E0D000701100 /* SceltaMultipla.swift */; };
 		D1033F9325A0EF5C00701100 /* Impostazioni.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1033F9225A0EF5C00701100 /* Impostazioni.swift */; };
@@ -40,6 +42,8 @@
 		63BE879FC5C4D7F4ED58FD8C /* Pods-MessaggiApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessaggiApp.release.xcconfig"; path = "Target Support Files/Pods-MessaggiApp/Pods-MessaggiApp.release.xcconfig"; sourceTree = "<group>"; };
 		C4862A4125E8F0A7004A7824 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		C4862AB925E998B8004A7824 /* EliminaChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EliminaChatView.swift; sourceTree = "<group>"; };
+		C4862B1525EAB220004A7824 /* ProgressiveBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveBarView.swift; sourceTree = "<group>"; };
+		C4862B1925EAB275004A7824 /* GestioneProgressiveBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestioneProgressiveBar.swift; sourceTree = "<group>"; };
 		D1033F8925A0C65300701100 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		D1033F8C25A0E0D000701100 /* SceltaMultipla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceltaMultipla.swift; sourceTree = "<group>"; };
 		D1033F9225A0EF5C00701100 /* Impostazioni.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Impostazioni.swift; sourceTree = "<group>"; };
@@ -92,6 +96,15 @@
 				C4862AB925E998B8004A7824 /* EliminaChatView.swift */,
 			);
 			path = Eliminazione;
+			sourceTree = "<group>";
+		};
+		C4862B1425EAB202004A7824 /* Progressive Bar */ = {
+			isa = PBXGroup;
+			children = (
+				C4862B1525EAB220004A7824 /* ProgressiveBarView.swift */,
+				C4862B1925EAB275004A7824 /* GestioneProgressiveBar.swift */,
+			);
+			path = "Progressive Bar";
 			sourceTree = "<group>";
 		};
 		D174CD3225A75DEA0071E659 /* Loading */ = {
@@ -208,6 +221,7 @@
 		D1E957D925A0761500367411 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C4862B1425EAB202004A7824 /* Progressive Bar */,
 				C4862AB825E998A7004A7824 /* Eliminazione */,
 				C4862A4025E8F09B004A7824 /* Alert */,
 				D174CD3225A75DEA0071E659 /* Loading */,
@@ -372,11 +386,13 @@
 				D1E957DB25A0762800367411 /* LoginView.swift in Sources */,
 				D1E957E625A0918000367411 /* Dati.swift in Sources */,
 				C4862ABA25E998B8004A7824 /* EliminaChatView.swift in Sources */,
+				C4862B1A25EAB275004A7824 /* GestioneProgressiveBar.swift in Sources */,
 				D1033F9A25A0EFBB00701100 /* UtenteView.swift in Sources */,
 				D1E957CC25A075A200367411 /* ContentView.swift in Sources */,
 				D174CD6C25A8AEFC0071E659 /* GestioneImmagini.swift in Sources */,
 				D1FF375325A26FB90030257D /* SezioneUtenteView.swift in Sources */,
 				D174CD3425A75E060071E659 /* LoadingView.swift in Sources */,
+				C4862B1625EAB220004A7824 /* ProgressiveBarView.swift in Sources */,
 				D1E957E225A08CDC00367411 /* contatti.swift in Sources */,
 				D18E74D125A125D50001457B /* CampiDiTesto.swift in Sources */,
 				D1033F8D25A0E0D000701100 /* SceltaMultipla.swift in Sources */,

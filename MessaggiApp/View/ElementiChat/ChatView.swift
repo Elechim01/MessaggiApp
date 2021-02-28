@@ -13,6 +13,8 @@ struct ChatView: View {
 //    scaricamento lista di messaggi dal databse
     @EnvironmentObject var Dati : Gestione
     var chat : Chat
+    var utenteNuovo : Bool
+    
      @State var messaggio : String = ""
     @State var scrolled = false
     var body: some View {
@@ -75,15 +77,22 @@ struct ChatView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(
             trailing:
-                Image(uiImage:Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.image!)
-//                Image("Busta")
+                Image(uiImage:Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.image ??  UIImage(imageLiteralResourceName: "Busta"))
+//            Image("Busta")
                 .resizable().frame(width: 40, height: 40).clipShape(Circle())
+                .onTapGesture {
+                    Dati.chatDaEiminare = chat
+                    Dati.eliminazioneChatToggle.toggle()
+                }
         )
         .navigationBarTitle(Dati.trovaDestinatario(ut: chat.ut, ut1: chat.ut1)!.nome)
         .onDisappear{
+//            Da fare solamente se entro da utente.
+            if utenteNuovo == true{
 //                aggiungere la chat se non è presente, peroblema con la creazione.
             chat .image = Dati.trovaUtenti(telefono: Dati.TrovaDestinatarioChat(chat: chat)).image
             Dati.ControlloAggiuntaChat(chat: chat)
+            }
             
         }
 //        Dati.FiltroMessaggi(altroUtente: Dati.trovaUtenti(telefono: chat.telefono)!
@@ -101,6 +110,6 @@ struct ChatView_Previews: PreviewProvider {
     static var chat = Chat(percorsoimage: "Tulipani", messaggi: [messagg01,messagg02],ut: "30",ut1: "", idf: "")
     
     static var previews: some View {
-        ChatView(chat: chat).environmentObject(Gestione())
+        ChatView(chat: chat, utenteNuovo: true).environmentObject(Gestione())
     }
 }

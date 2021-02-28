@@ -23,9 +23,16 @@ struct ContentView: View {
                                 .navigationTitle("")
                                 .navigationBarTitleDisplayMode(.inline)
                                 .navigationBarHidden(true)
+//                            per test
+//                                    .onAppear{
+//                                        gestionedati.LeggiChat()
+//                                        gestionedati.Lettura()
+//                                        gestionedati.LeggiMessaggio()
+//                                    }
                             }
                         }else{
-                            Text("Caricamento chat")
+//                            Text("Caricamento")
+                            GestioneProgressiveBar().environmentObject(gestionedati)
                                 .onAppear{
                                     gestionedati.isLoading = false
                                     print("🤖",valoreAggiunto)

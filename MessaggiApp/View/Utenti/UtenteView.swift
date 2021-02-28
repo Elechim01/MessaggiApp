@@ -22,7 +22,7 @@ struct UtenteView: View {
                     ForEach(gestioneDati.utenti){ utenti in
                         if(utenti.numeroTelefono != gestioneDati.Prorpietario.numeroTelefono){
                             NavigationLink(
-                                destination: ChatView(chat: Chat(percorsoimage: utenti.percorsoimage, messaggi: [], ut: utenti.numeroTelefono,ut1: gestioneDati.Prorpietario.numeroTelefono, idf: "")).environmentObject(gestioneDati)
+                                destination: ChatView(chat: Chat(percorsoimage: utenti.percorsoimage, messaggi: [], ut: utenti.numeroTelefono,ut1: gestioneDati.Prorpietario.numeroTelefono, idf: ""),utenteNuovo : true).environmentObject(gestioneDati)
     //                            con il Disappear non ha problemi
                             ,label: {
                         SezioneUtenteView(utente: utenti)
